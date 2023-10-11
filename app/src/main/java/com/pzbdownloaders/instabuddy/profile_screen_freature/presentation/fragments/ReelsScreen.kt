@@ -69,7 +69,9 @@ class ReelsScreen : Fragment() {
             binding.profileShimmerVideo4.visibility = View.INVISIBLE
 
             binding.profileVideoRecyclerView.visibility = View.VISIBLE
-            binding.controlVideoButtonsRoot.visibility = View.VISIBLE
+            //binding.controlVideoButtonsRoot.visibility = View.VISIBLE
+            binding.profileVideoNextButton.visibility = View.VISIBLE
+            binding.profileVideoPreviousButton.visibility = View.VISIBLE
 
             listOfReels = it?.items?.toCollection(ArrayList())
             if (check) {

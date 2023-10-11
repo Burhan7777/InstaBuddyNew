@@ -8,7 +8,7 @@ WHAT TO DO NEXT
 6) Change the icons of profile: DONE
 7) Change the width of multiple posts icon: DONE
 8) Previous posts button (See if possible): 
-9) Instagram button on appbar of profile screen which takes to profile: 
+9) Instagram button on appbar of profile screen which takes to profile: DONE
 10) Favourite button to fav the account: 
 11) Create history of search: 
 12) Create favourites page: 
@@ -16,8 +16,8 @@ WHAT TO DO NEXT
 14) Create Stories page: DONE
 15) Create highlight tray: 
 16) Move dp and name to left and add followers and following: CANCEL
-17) Add likes on post , reels: 
+17) Add likes on post , reels:  
 18) Views on reels: 
 19) play button on reels: 
 20) Time on stories: 
-21) Add circular progress bar to the shimmer effect of posts , reels and stories:
+21) Add circular progress bar to the shimmer effect of posts , reels and stories: 

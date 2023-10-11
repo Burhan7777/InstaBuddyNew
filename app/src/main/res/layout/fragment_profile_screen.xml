@@ -24,22 +24,35 @@
             android:src="@drawable/instagram_logo" />
     </androidx.appcompat.widget.Toolbar>
 
+    <!--   <androidx.core.widget.NestedScrollView
+           android:id="@+id/nextScollView"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/profileToolbar">
+   -->
+
+    <!--  <androidx.constraintlayout.widget.ConstraintLayout
+          android:id="@+id/dpAndUserNameRoot"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent">-->
+
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/nextScollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fillViewport="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profileToolbar">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/dpAndUserNameRoot"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent">
 
 
             <ImageView
@@ -63,23 +76,23 @@
                 app:layout_constraintTop_toBottomOf="@+id/profileDp" />
 
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/profileHighlightsRoot"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profilerUsername">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/highlightRecyclerView"
+            <!--    <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/profileHighlightsRoot"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    app:layout_constraintTop_toBottomOf="@+id/profilerUsername">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/highlightRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 
             <com.google.android.material.tabs.TabLayout
@@ -88,17 +101,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fadeScrollbars="true"
-                app:tabIndicator="@drawable/tab_indicator"
                 android:scrollbarFadeDuration="1000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:tabIndicatorGravity="stretch"
-                app:tabMode="fixed"
-                app:tabIndicatorColor="@color/light_accent"
-                app:tabRippleColor="@color/light_accent"
+                app:layout_constraintTop_toBottomOf="@+id/profilerUsername"
+                app:tabIndicator="@drawable/tab_indicator"
                 app:tabIndicatorAnimationDuration="500"
                 app:tabIndicatorAnimationMode="elastic"
-                app:layout_constraintTop_toBottomOf="@+id/profilerUsername"
+                app:tabIndicatorColor="@color/light_accent"
+                app:tabIndicatorGravity="stretch"
+                app:tabMode="fixed"
+                app:tabRippleColor="@color/light_accent"
                 app:tabSelectedTextColor="@color/text_color_dark">
 
                 <com.google.android.material.tabs.TabItem
@@ -121,8 +134,11 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/profileTabLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/profileTabLayout" />
 
+
+            <!--       </androidx.constraintlayout.widget.ConstraintLayout>
+               </androidx.core.widget.NestedScrollView>-->
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
