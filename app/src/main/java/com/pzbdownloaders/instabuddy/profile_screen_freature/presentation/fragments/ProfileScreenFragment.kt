@@ -1,5 +1,7 @@
 package com.pzbdownloaders.instabuddy.profile_screen_freature.presentation.fragments
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -79,6 +81,14 @@ class ProfileScreenFragment : Fragment() {
 
         viewModel.getPosts.observe(requireActivity()) {
 
+        }
+
+        binding.instagramProfile.setOnClickListener {
+            Intent(Intent.ACTION_VIEW).apply {
+                this.data = Uri.parse("https://www.instagram.com/$username/")
+            }.also {
+                requireActivity().startActivity(it)
+            }
         }
     }
 }

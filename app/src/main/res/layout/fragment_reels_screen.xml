@@ -13,9 +13,10 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="10dp">
 
-        <include layout="@layout/single_row_profile_placeholder" />
+        <include layout="@layout/single_row_reels_placeholder" />
     </com.facebook.shimmer.ShimmerFrameLayout>
 
     <com.facebook.shimmer.ShimmerFrameLayout
@@ -26,7 +27,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profileShimmerVideo1">
 
-        <include layout="@layout/single_row_profile_placeholder" />
+        <include layout="@layout/single_row_reels_placeholder" />
     </com.facebook.shimmer.ShimmerFrameLayout>
 
     <com.facebook.shimmer.ShimmerFrameLayout
@@ -37,7 +38,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profileShimmerVideo2">
 
-        <include layout="@layout/single_row_profile_placeholder" />
+        <include layout="@layout/single_row_reels_placeholder" />
     </com.facebook.shimmer.ShimmerFrameLayout>
 
     <com.facebook.shimmer.ShimmerFrameLayout
@@ -48,7 +49,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profileShimmerVideo3">
 
-        <include layout="@layout/single_row_profile_placeholder" />
+        <include layout="@layout/single_row_reels_placeholder" />
 
     </com.facebook.shimmer.ShimmerFrameLayout>
 

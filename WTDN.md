@@ -12,11 +12,12 @@ WHAT TO DO NEXT
 10) Favourite button to fav the account: 
 11) Create history of search: 
 12) Create favourites page: 
-13) Create Reels page: 
-14) Create Stories page: 
+13) Create Reels page: DONE
+14) Create Stories page: DONE
 15) Create highlight tray: 
 16) Move dp and name to left and add followers and following: CANCEL
 17) Add likes on post , reels: 
 18) Views on reels: 
 19) play button on reels: 
 20) Time on stories: 
+21) Add circular progress bar to the shimmer effect of posts , reels and stories:
