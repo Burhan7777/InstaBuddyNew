@@ -19,4 +19,7 @@ interface Dao {
 
     @Query("SELECT * FROM searchHistory")
     fun getHistory(): LiveData<List<SearchHistory>>
+
+    @Query("delete from searchHistory")
+    suspend fun deleteAll()
 }

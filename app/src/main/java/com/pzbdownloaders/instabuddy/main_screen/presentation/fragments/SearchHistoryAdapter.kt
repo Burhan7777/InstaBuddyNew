@@ -1,10 +1,12 @@
 package com.pzbdownloaders.instabuddy.main_screen.presentation.fragments
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Recycler
 import com.pzbdownloaders.instabuddy.R
@@ -17,7 +19,6 @@ class SearchHistoryAdapter constructor(
 ) :
     RecyclerView.Adapter<SearchHistoryAdapter.SearchHistoryViewHolder>() {
 
-
     fun update(history: ArrayList<SearchHistory>) {
         this.history = history
         notifyDataSetChanged()
@@ -25,7 +26,8 @@ class SearchHistoryAdapter constructor(
 
     class SearchHistoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var searchName: TextView = view.findViewById(R.id.searchHistoryUsername)
-        var clearImageView = view.findViewById<ImageView>(R.id.searchHistoryClear)
+        var clearImageView: ImageView = view.findViewById(R.id.searchHistoryClear)
+        var root: ConstraintLayout = view.findViewById(R.id.rootSearchHistory)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchHistoryViewHolder {
@@ -36,9 +38,9 @@ class SearchHistoryAdapter constructor(
 
     override fun onBindViewHolder(holder: SearchHistoryViewHolder, position: Int) {
         holder.searchName.text = history[position].userName
-        holder.clearImageView.setOnClickListener {
-            viewModel.deleteUserName(history[position].userName)
-        }
+            holder.clearImageView.setOnClickListener {
+                viewModel.deleteUserName(history[position].userName)
+            }
     }
 
     override fun getItemCount(): Int {

@@ -39,6 +39,7 @@ class MainActivityViewModel @Inject constructor(
 
     var fileSize: MutableLiveData<Long> = MutableLiveData()
 
+
     fun getFIleSize() {
         fileSize.value = downloadManager.totalLength
         Log.i("file123", fileSize.value.toString())
@@ -83,5 +84,12 @@ class MainActivityViewModel @Inject constructor(
 
     fun getHistory(): LiveData<List<SearchHistory>> {
         return searchHistoryRepo.getHistory()
+    }
+
+    fun deleteAll() {
+        viewModelScope.launch {
+            searchHistoryRepo.deleteAll()
+        }
+
     }
 }

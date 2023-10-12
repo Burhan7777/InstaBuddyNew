@@ -94,12 +94,20 @@ class BatchDownloadFragment : Fragment() {
         viewModel.getHistory().observe(requireActivity()) {
             searchHistoryAdapter.update(it.toCollection(ArrayList()))
         }
+
+        viewModel.getHistory().observe(requireActivity()) {
+            if (it.isEmpty()) {
+                binding.searchHistory.visibility = View.INVISIBLE
+            }
+        }
+
+        binding.deleteHistory.setOnClickListener {
+            viewModel.deleteAll()
+        }
     }
 
     private fun insertIntoSearchHistory(username: String) {
         val searchHistory = SearchHistory(0, username)
         viewModel.insertUserName(searchHistory)
     }
-
-
 }

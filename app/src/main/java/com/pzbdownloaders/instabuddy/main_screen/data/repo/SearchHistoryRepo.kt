@@ -19,4 +19,8 @@ class SearchHistoryRepo @Inject constructor(private val database: Database) {
     fun getHistory(): LiveData<List<SearchHistory>> {
         return database.getDao().getHistory()
     }
+
+    suspend fun deleteAll() {
+        database.getDao().deleteAll()
+    }
 }
