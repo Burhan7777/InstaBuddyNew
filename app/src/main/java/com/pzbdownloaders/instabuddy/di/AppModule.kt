@@ -2,9 +2,14 @@ package com.pzbdownloaders.instabuddy.di
 
 import android.app.Application
 import android.content.Context
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import com.pzbdownloaders.instabuddy.main_screen.data.api.DownloadAPI
 import com.pzbdownloaders.instabuddy.main_screen.data.repo.ReelsAndPostsRepo
 import com.pzbdownloaders.instabuddy.common.domain.util.Constants
+import com.pzbdownloaders.instabuddy.main_screen.data.db.Database
+import com.pzbdownloaders.instabuddy.main_screen.data.model.SearchHistory
+import com.pzbdownloaders.instabuddy.main_screen.data.repo.SearchHistoryRepo
 import com.pzbdownloaders.instabuddy.main_screen.data.repo.SearchRepo
 import com.pzbdownloaders.instabuddy.main_screen.domain.usecase.GetUrlUseCase
 import com.pzbdownloaders.instabuddy.main_screen.domain.usecase.ReelsAndPostsUseCase
@@ -56,6 +61,11 @@ class AppModule {
     @Singleton
     fun createProfileAPI(): ProfileAPI = createRetrofitInstance().create(ProfileAPI::class.java)
 
+    @Provides
+    @Singleton
+    fun createRoomDatabase(@ApplicationContext context: Context): Database =
+        Room.databaseBuilder(context, Database::class.java, "searchHistory").build()
+
 
     @Provides
     fun reelsAndPostsRepo() = ReelsAndPostsRepo(createDownloadAPI())
@@ -102,4 +112,7 @@ class AppModule {
 
     @Provides
     fun userIdUseCase() = UserIdUseCase(userIdRepo())
+
+    @Provides
+    fun searchHistoryRepo(@ApplicationContext context: Context) = SearchHistoryRepo(createRoomDatabase(context))
 }

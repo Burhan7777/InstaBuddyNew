@@ -17,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pzbdownloaders.instabuddy.common.presentation.MainActivityViewModel
 import com.pzbdownloaders.instabuddy.databinding.FragmentBatchDownloadBinding
+import com.pzbdownloaders.instabuddy.main_screen.data.model.SearchHistory
 import com.pzbdownloaders.instabuddy.main_screen.data.model.Users
 import com.pzbdownloaders.instabuddy.main_screen.presentation.util.SearchAdapter
 
@@ -27,6 +28,8 @@ class BatchDownloadFragment : Fragment() {
     var listOfUsers: ArrayList<Users>? = ArrayList()
     lateinit var adapter: SearchAdapter
     lateinit var navController: NavController
+    lateinit var searchHistoryAdapter: SearchHistoryAdapter
+    var history: ArrayList<SearchHistory> = ArrayList()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,6 +63,9 @@ class BatchDownloadFragment : Fragment() {
                         as InputMethodManager
                 imm.hideSoftInputFromWindow(view.windowToken, 0)
                 binding.searchRecyclerView.visibility = View.GONE
+                binding.searchHistory.visibility = View.INVISIBLE
+
+                insertIntoSearchHistory(binding.searchEdittext.text.toString())
             }
             true
         }
@@ -73,12 +79,26 @@ class BatchDownloadFragment : Fragment() {
             binding.shimmerLayout4.visibility = View.INVISIBLE
             binding.shimmerLayout5.visibility = View.INVISIBLE
             binding.searchRecyclerView.visibility = View.VISIBLE
-
         }
         adapter = SearchAdapter(listOfUsers, requireContext(), navController)
         binding.searchRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.searchRecyclerView.adapter = adapter
 
+        binding.searchEdittext.setOnFocusChangeListener { view, b ->
+            binding.searchHistory.visibility = View.VISIBLE
+        }
+
+        searchHistoryAdapter = SearchHistoryAdapter(history, viewModel)
+        binding.searchHistoryRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.searchHistoryRecyclerView.adapter = searchHistoryAdapter
+        viewModel.getHistory().observe(requireActivity()) {
+            searchHistoryAdapter.update(it.toCollection(ArrayList()))
+        }
+    }
+
+    private fun insertIntoSearchHistory(username: String) {
+        val searchHistory = SearchHistory(0, username)
+        viewModel.insertUserName(searchHistory)
     }
 
 
