@@ -32,8 +32,10 @@
             android:id="@+id/searchEdittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="true"
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="10dp"
+            android:focusable="true"
             android:imeOptions="actionSearch"
             android:inputType="text"
             android:textCursorDrawable="@null" />
@@ -67,10 +69,21 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:clickable="true"
+            android:focusable="true"
             android:src="@drawable/ic_delete"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:focusable="true" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/hideSearchHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:backgroundTint="@color/light_accent"
+            android:text="hide"
+            app:cornerRadius="10dp"
+            app:layout_constraintStart_toEndOf="@+id/searchHistoryTv"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/searchHistoryRecyclerView"

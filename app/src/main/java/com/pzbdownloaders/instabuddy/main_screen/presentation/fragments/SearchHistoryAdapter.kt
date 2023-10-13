@@ -38,9 +38,13 @@ class SearchHistoryAdapter constructor(
 
     override fun onBindViewHolder(holder: SearchHistoryViewHolder, position: Int) {
         holder.searchName.text = history[position].userName
-            holder.clearImageView.setOnClickListener {
-                viewModel.deleteUserName(history[position].userName)
-            }
+
+        holder.searchName.setOnClickListener {
+            viewModel.sendSearchRequest(true, history[position].userName)
+        }
+        holder.clearImageView.setOnClickListener {
+            viewModel.deleteUserName(history[position].userName)
+        }
     }
 
     override fun getItemCount(): Int {

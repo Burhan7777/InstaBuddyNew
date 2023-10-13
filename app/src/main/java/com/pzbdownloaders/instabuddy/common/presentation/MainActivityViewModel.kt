@@ -39,6 +39,10 @@ class MainActivityViewModel @Inject constructor(
 
     var fileSize: MutableLiveData<Long> = MutableLiveData()
 
+    var sendSearchRequest: MutableLiveData<Boolean> = MutableLiveData(false)
+
+    var searchUserName: MutableLiveData<String> = MutableLiveData()
+
 
     fun getFIleSize() {
         fileSize.value = downloadManager.totalLength
@@ -90,6 +94,10 @@ class MainActivityViewModel @Inject constructor(
         viewModelScope.launch {
             searchHistoryRepo.deleteAll()
         }
+    }
 
+    fun sendSearchRequest(value: Boolean, username: String) {
+        sendSearchRequest.value = value
+        searchUserName.value = username
     }
 }

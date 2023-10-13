@@ -3,6 +3,7 @@ package com.pzbdownloaders.instabuddy.main_screen.presentation.fragments
 import android.content.Context
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -103,6 +104,35 @@ class BatchDownloadFragment : Fragment() {
 
         binding.deleteHistory.setOnClickListener {
             viewModel.deleteAll()
+        }
+
+        binding.searchEdittext.setOnClickListener {
+            binding.searchHistory.visibility = View.VISIBLE
+        }
+
+        viewModel.searchUserName.observe(requireActivity()) {
+            viewModel.getSearchResults("https://apiprofi.com/api/search?user=${viewModel.searchUserName.value}")
+            binding.searchEdittext.setText(viewModel.searchUserName.value)
+            binding.searchHistory.visibility = View.INVISIBLE
+            //  viewModel.sendSearchRequest.value = false
+            binding.shimmerLayout.visibility = View.VISIBLE
+            binding.shimmerLayout1.visibility = View.VISIBLE
+            binding.shimmerLayout2.visibility = View.VISIBLE
+            binding.shimmerLayout3.visibility = View.VISIBLE
+            binding.shimmerLayout4.visibility = View.VISIBLE
+            binding.shimmerLayout5.visibility = View.VISIBLE
+            binding.shimmerLayout.startShimmerAnimation()
+            binding.shimmerLayout1.startShimmerAnimation()
+            binding.shimmerLayout2.startShimmerAnimation()
+            binding.shimmerLayout3.startShimmerAnimation()
+            binding.shimmerLayout4.startShimmerAnimation()
+            binding.shimmerLayout5.startShimmerAnimation()
+            binding.searchRecyclerView.visibility = View.GONE
+
+        }
+
+        binding.hideSearchHistory.setOnClickListener {
+            binding.searchHistory.visibility = View.INVISIBLE
         }
     }
 
