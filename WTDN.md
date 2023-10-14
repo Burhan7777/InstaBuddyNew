@@ -21,4 +21,4 @@ WHAT TO DO NEXT
 19) play button on reels: 
 20) Time on stories: 
 21) Add circular progress bar to the shimmer effect of posts , reels and stories: 
-22) Add a download manager : 
+22) Add a download manager :  
