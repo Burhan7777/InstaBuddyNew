@@ -10,7 +10,7 @@ WHAT TO DO NEXT
 8) Previous posts button (See if possible): 
 9) Instagram button on appbar of profile screen which takes to profile: DONE
 10) Favourite button to fav the account: 
-11) Create history of search: 
+11) Create history of search: DONE
 12) Create favourites page: 
 13) Create Reels page: DONE
 14) Create Stories page: DONE
@@ -21,3 +21,4 @@ WHAT TO DO NEXT
 19) play button on reels: 
 20) Time on stories: 
 21) Add circular progress bar to the shimmer effect of posts , reels and stories: 
+22) Add a download manager : 
