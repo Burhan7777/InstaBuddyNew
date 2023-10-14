@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pzbdownloaders.instabuddy.main_screen.data.model.Search
+import com.pzbdownloaders.instabuddy.main_screen.data.model.SearchHistory
+import com.pzbdownloaders.instabuddy.main_screen.data.repo.SearchHistoryRepo
 import com.pzbdownloaders.instabuddy.main_screen.domain.usecase.GetUrlUseCase
 import com.pzbdownloaders.instabuddy.main_screen.domain.usecase.ReelsAndPostsUseCase
 import com.pzbdownloaders.instabuddy.main_screen.domain.usecase.SearchUseCase
@@ -23,7 +25,8 @@ class MainActivityViewModel @Inject constructor(
     private val getUrlUseCase: GetUrlUseCase,
     private val searchUseCase: SearchUseCase,
     private val allPostsUseCase: AllPostsUseCase,
-    private val downloadManager: DownloadManager
+    private val downloadManager: DownloadManager,
+    private val searchHistoryRepo: SearchHistoryRepo
 ) : ViewModel() {
 
     var getShortCode: String = ""
@@ -35,6 +38,10 @@ class MainActivityViewModel @Inject constructor(
         private set
 
     var fileSize: MutableLiveData<Long> = MutableLiveData()
+
+    var sendSearchRequest: MutableLiveData<Boolean> = MutableLiveData(false)
+
+    var searchUserName: MutableLiveData<String> = MutableLiveData()
 
 
     fun getFIleSize() {
@@ -65,5 +72,32 @@ class MainActivityViewModel @Inject constructor(
             searchResultsCode.postValue(searchUseCase.getUrlResult(url).second)
             Log.i("search123", searchResults.value.toString())
         }
+    }
+
+    fun insertUserName(searchHistory: SearchHistory) {
+        viewModelScope.launch {
+            searchHistoryRepo.insertUserName(searchHistory)
+        }
+    }
+
+    fun deleteUserName(userName: String) {
+        viewModelScope.launch {
+            searchHistoryRepo.deleteUserName(userName)
+        }
+    }
+
+    fun getHistory(): LiveData<List<SearchHistory>> {
+        return searchHistoryRepo.getHistory()
+    }
+
+    fun deleteAll() {
+        viewModelScope.launch {
+            searchHistoryRepo.deleteAll()
+        }
+    }
+
+    fun sendSearchRequest(value: Boolean, username: String) {
+        sendSearchRequest.value = value
+        searchUserName.value = username
     }
 }

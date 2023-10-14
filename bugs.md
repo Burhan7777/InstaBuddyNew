@@ -12,3 +12,4 @@ BUGS
 10) Download font for title:
 11) Choose smaller thumbnail for posts to load faster:
 12) Tabs of profile should have corners:
+13) Fix the ripple effect of search history (Delete buttons and username textview):
