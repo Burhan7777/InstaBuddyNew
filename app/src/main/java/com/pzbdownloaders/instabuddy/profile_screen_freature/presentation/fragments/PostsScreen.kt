@@ -85,7 +85,7 @@ class PostsScreen : Fragment() {
             binding.profileRecyclerView.visibility = View.VISIBLE
          //   binding.controlButtonsRoot.visibility = View.VISIBLE
             binding.profileNextButton.visibility = View.VISIBLE
-            binding.profilePreviousButton.visibility = View.VISIBLE
+          //  binding.profilePreviousButton.visibility = View.VISIBLE
 
             listOfPhotos =
                 it?.data?.user?.edgeOwnerToTimelineMedia?.edges?.toCollection(ArrayList())
@@ -142,4 +142,5 @@ class PostsScreen : Fragment() {
         }
 
     }
+
 }

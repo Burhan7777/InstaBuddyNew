@@ -52,6 +52,7 @@ class ProfileScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.collapsingToolbar.isTitleEnabled = false
         (requireActivity() as AppCompatActivity).setSupportActionBar(binding.profileToolbar)
         adapter = ProfileAdapter(listOfPhotos, requireContext(), findNavController())
         val args: ProfileScreenFragmentArgs by navArgs()
@@ -62,8 +63,10 @@ class ProfileScreenFragment : Fragment() {
         var postScreen = PostsScreen()
         postScreen.arguments = bundle
 
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = username
+
         Glide.with(requireActivity()).load(profilePictureUrl).circleCrop().into(binding.profileDp)
-        binding.profilerUsername.text = username
+       // binding.profilerUsername.text = username
 
         var profileViewPagerAdapter = ProfileViewPagerAdapter(requireActivity())
         profileViewPagerAdapter.username = username

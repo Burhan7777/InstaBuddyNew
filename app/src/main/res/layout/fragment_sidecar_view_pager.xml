@@ -15,7 +15,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Download" />
+        app:title="Download">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/sideDownloadAllButton"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginBottom="2dp"
+            android:fontFamily="@font/instagram_sans_light"
+            android:text="Download all"
+            android:visibility="gone"
+            app:backgroundTint="@color/light_accent"
+            app:cornerRadius="10dp"
+         android:layout_gravity="end"
+            android:layout_margin="10dp"
+            app:tabIndicator="@drawable/tab_indicator" />
+
+    </androidx.appcompat.widget.Toolbar>
+    >
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/sidecarViewPager"
@@ -34,24 +51,9 @@
         android:text="Download this post"
         app:backgroundTint="@color/light_accent"
         app:cornerRadius="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/sideDownloadAllButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/sideDownloadAllButton"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginBottom="2dp"
-        android:fontFamily="@font/instagram_sans_light"
-        android:text="Download all"
-        app:tabIndicator="@drawable/tab_indicator"
-        android:visibility="gone"
-        app:backgroundTint="@color/light_accent"
-        app:cornerRadius="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

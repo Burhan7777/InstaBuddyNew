@@ -1,69 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/postScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".profile_screen_freature.presentation.fragments.PostsScreen">
 
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/profileShimmer1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <include layout="@layout/single_row_profile_placeholder" />
-    </com.facebook.shimmer.ShimmerFrameLayout>
-
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/profileShimmer2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileShimmer1">
-
-        <include layout="@layout/single_row_profile_placeholder" />
-    </com.facebook.shimmer.ShimmerFrameLayout>
-
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/profileShimmer3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileShimmer2">
-
-        <include layout="@layout/single_row_profile_placeholder" />
-    </com.facebook.shimmer.ShimmerFrameLayout>
-
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/profileShimmer4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileShimmer3">
-
-        <include layout="@layout/single_row_profile_placeholder" />
-
-    </com.facebook.shimmer.ShimmerFrameLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/postScrollView"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+       >
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/profileShimmer1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <include layout="@layout/single_row_profile_placeholder" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/profileShimmer2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileShimmer1">
+
+            <include layout="@layout/single_row_profile_placeholder" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/profileShimmer3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileShimmer2">
+
+            <include layout="@layout/single_row_profile_placeholder" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/profileShimmer4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileShimmer3">
+
+            <include layout="@layout/single_row_profile_placeholder" />
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+        <!--<androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">-->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/profileRecyclerView"
@@ -72,8 +71,8 @@
                 android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginBottom="100dp"/>
 
             <!--      <LinearLayout
                       android:id="@+id/controlButtonsRoot"
@@ -93,35 +92,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
                 android:layout_marginTop="5dp"
-                android:visibility="invisible"
+                android:layout_marginEnd="5dp"
                 android:background="@drawable/download_button_background"
                 android:backgroundTint="@color/light_accent"
                 android:fontFamily="@font/instagram_sans_light"
+                app:layout_constraintTop_toBottomOf="@+id/profileRecyclerView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profileRecyclerView"
+                android:visibility="invisible"
                 app:spinning_bar_color="@color/text_color_dark" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/profilePreviousButton"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginStart="5dp"
-                android:visibility="invisible"
-                android:layout_marginEnd="5dp"
-                android:backgroundTint="@color/light_accent"
-                android:fontFamily="@font/instagram_sans_light"
-                android:text="Previous Posts"
-                app:cornerRadius="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profileNextButton"
-                />
+            <!--         <com.google.android.material.button.MaterialButton
+                         android:id="@+id/profilePreviousButton"
+                         android:layout_width="match_parent"
+                         android:layout_height="60dp"
+                         android:layout_marginStart="5dp"
+                         android:visibility="invisible"
+                         android:layout_marginEnd="5dp"
+                         android:backgroundTint="@color/light_accent"
+                         android:fontFamily="@font/instagram_sans_light"
+                         android:text="Previous Posts"
+                         app:cornerRadius="10dp"
+                         app:layout_constraintEnd_toEndOf="parent"
+                         app:layout_constraintStart_toStartOf="parent"
+                         app:layout_constraintTop_toBottomOf="@+id/profileNextButton"
+                         />-->
 
 
             <!--  </LinearLayout>-->
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+       <!-- </androidx.constraintlayout.widget.ConstraintLayout>-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

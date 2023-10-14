@@ -71,7 +71,7 @@ class ReelsScreen : Fragment() {
             binding.profileVideoRecyclerView.visibility = View.VISIBLE
             //binding.controlVideoButtonsRoot.visibility = View.VISIBLE
             binding.profileVideoNextButton.visibility = View.VISIBLE
-            binding.profileVideoPreviousButton.visibility = View.VISIBLE
+          //  binding.profileVideoPreviousButton.visibility = View.VISIBLE
 
             listOfReels = it?.items?.toCollection(ArrayList())
             if (check) {
