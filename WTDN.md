@@ -22,6 +22,6 @@ WHAT TO DO NEXT
 20) Time on stories: 
 21) Add circular progress bar to the shimmer effect of posts , reels and stories: 
 22) Add a download manager :  
-23) Download button at the bottom :
-24) Download all button at the top:
+23) Download button at the bottom : DONE
+24) Download all button at the top: DONE
 25) Loading next posts:

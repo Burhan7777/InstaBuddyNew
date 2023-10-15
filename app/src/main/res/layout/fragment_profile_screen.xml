@@ -88,85 +88,10 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!--<androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">-->
-
-
-        <!--   <androidx.core.widget.NestedScrollView
-               android:id="@+id/nextScollView"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               app:layout_constraintEnd_toEndOf="parent"
-               app:layout_constraintStart_toStartOf="parent"
-               app:layout_constraintTop_toBottomOf="@+id/profileToolbar">
-       -->
-
-        <!--  <androidx.constraintlayout.widget.ConstraintLayout
-              android:id="@+id/dpAndUserNameRoot"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent">-->
-
-        <!--
-            <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fillViewport="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profileToolbar">
-
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-        -->
-
-
-        <!--   <TextView
-               android:id="@+id/profilerUsername"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_margin="10dp"
-               android:fontFamily="@font/instagram_sans_light"
-               android:textSize="18sp"
-               app:layout_constraintEnd_toEndOf="parent"
-               app:layout_constraintStart_toStartOf="parent"
-               app:layout_constraintTop_toBottomOf="@+id/profileDp" />-->
-
-
-        <!--    <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/profileHighlightsRoot"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profilerUsername">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/highlightRecyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/profileViewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-
-        <!--       </androidx.constraintlayout.widget.ConstraintLayout>
-           </androidx.core.widget.NestedScrollView>-->
-        <!--   </androidx.constraintlayout.widget.ConstraintLayout>
-       </androidx.core.widget.NestedScrollView>-->
-    <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
