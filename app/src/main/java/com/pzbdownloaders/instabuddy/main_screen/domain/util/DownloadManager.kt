@@ -11,6 +11,10 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
+import com.downloader.Error
+import com.downloader.OnDownloadListener
+import com.downloader.OnStartOrResumeListener
+import com.downloader.PRDownloader
 import com.huxq17.download.DownloadProvider.context
 import com.huxq17.download.Pump
 import com.huxq17.download.core.task.DownloadTask
@@ -24,7 +28,10 @@ import ir.siaray.downloadmanagerplus.enums.DownloadReason
 import ir.siaray.downloadmanagerplus.interfaces.DownloadListener
 import ir.siaray.downloadmanagerplus.model.DownloadItem
 import java.io.File
+import java.io.FileOutputStream
 import java.lang.Exception
+import java.net.HttpURLConnection
+import java.net.URL
 import java.util.*
 import javax.inject.Inject
 
@@ -107,7 +114,7 @@ class DownloadManager @Inject constructor(private val application: Context) {
                 info: BreakpointInfo,
                 cause: ResumeFailedCause
             ) {
-
+                Toast.makeText(application, "Download started", Toast.LENGTH_SHORT).show()
             }
 
             override fun downloadFromBreakpoint(
@@ -122,7 +129,7 @@ class DownloadManager @Inject constructor(private val application: Context) {
                 blockIndex: Int,
                 requestHeaderFields: MutableMap<String, MutableList<String>>
             ) {
-                Toast.makeText(application, "Download started", Toast.LENGTH_SHORT).show()
+
             }
 
             override fun connectEnd(

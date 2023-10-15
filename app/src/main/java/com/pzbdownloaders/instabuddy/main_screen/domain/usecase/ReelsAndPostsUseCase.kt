@@ -28,8 +28,8 @@ class ReelsAndPostsUseCase @Inject constructor(
         var result = reelsAndPostsRepo.getReels(url)
         when (result) {
             is GetSearchResults.Success -> {
-              downloadManager.downloadReel(result.data?.video_url)
-            //    downloadManager.newDownload(result.data?.video_url!!)
+            downloadManager.downloadReel(result.data?.video_url)
+            //   downloadManager.newDownload(result.data?.video_url!!)
             }
             is GetSearchResults.Error -> {
                 // DO NOTHING
