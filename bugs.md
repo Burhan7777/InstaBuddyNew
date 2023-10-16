@@ -13,3 +13,4 @@ BUGS
 11) Choose smaller thumbnail for posts to load faster:
 12) Tabs of profile should have corners:
 13) Fix the ripple effect of search history (Delete buttons and username textview):
+14) Fix multiple search requests :

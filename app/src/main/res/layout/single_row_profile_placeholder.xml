@@ -6,32 +6,33 @@
 
     <ImageView
         android:id="@+id/placeHolderImageView1"
-        android:layout_width="130dp"
-        android:layout_height="120dp"
+        android:layout_width="190dp"
+        android:layout_height="190dp"
         android:background="@drawable/profile_screen_background"
         android:contentDescription="Imageview"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/placeHolderImageView2"/>
 
     <ImageView
         android:id="@+id/placeHolderImageView2"
-        android:layout_width="130dp"
-        android:layout_height="120dp"
-        android:background="@drawable/profile_screen_background"
-        android:contentDescription="Imageview"
-        app:layout_constraintEnd_toStartOf="@+id/placeHolderImageView3"
-        app:layout_constraintStart_toEndOf="@+id/placeHolderImageView1"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/placeHolderImageView3"
-        android:layout_width="130dp"
-        android:layout_height="120dp"
+        android:layout_width="190dp"
+        android:layout_height="190dp"
         android:background="@drawable/profile_screen_background"
         android:contentDescription="Imageview"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/placeHolderImageView2"
+        app:layout_constraintStart_toEndOf="@+id/placeHolderImageView1"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--   <ImageView
+           android:id="@+id/placeHolderImageView3"
+           android:layout_width="190dp"
+           android:layout_height="190dp"
+           android:background="@drawable/profile_screen_background"
+           android:contentDescription="Imageview"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toEndOf="@id/placeHolderImageView2"
+           app:layout_constraintTop_toTopOf="parent" />
+   -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

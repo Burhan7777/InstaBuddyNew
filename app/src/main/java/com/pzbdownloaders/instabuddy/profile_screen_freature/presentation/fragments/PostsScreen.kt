@@ -65,7 +65,7 @@ class PostsScreen : Fragment() {
 
         binding.profileNextButton.text = "Next posts available"
         adapter = ProfileAdapter(listOfPhotos, requireContext(), findNavController())
-        binding.profileRecyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
+        binding.profileRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.profileRecyclerView.adapter = adapter
         binding.profileShimmer1.startShimmerAnimation()
         binding.profileShimmer2.startShimmerAnimation()

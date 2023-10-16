@@ -111,6 +111,7 @@ class BatchDownloadFragment : Fragment() {
         }
 
         viewModel.searchUserName.observe(requireActivity()) {
+            Log.i("login","login")
             viewModel.getSearchResults("https://apiprofi.com/api/search?user=${viewModel.searchUserName.value}")
             binding.searchEdittext.setText(viewModel.searchUserName.value)
             binding.searchHistory.visibility = View.INVISIBLE
