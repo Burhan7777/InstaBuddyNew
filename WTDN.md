@@ -16,7 +16,7 @@ WHAT TO DO NEXT
 14) Create Stories page: DONE
 15) Create highlight tray: 
 16) Move dp and name to left and add followers and following: CANCEL
-17) Add likes on post:  
+17) Add likes on post: DONE
 18) Views on reels: DONE
 19) play button on reels: DONE
 20) Time on stories: 

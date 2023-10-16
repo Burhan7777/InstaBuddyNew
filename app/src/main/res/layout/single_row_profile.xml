@@ -15,43 +15,65 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 -->
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/profileImageView"
-            android:layout_width="190dp"
-            android:layout_height="190dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/profile_screen_background"
-            android:scaleType="fitXY"
-            android:layout_margin="5dp"
-            app:shapeAppearanceOverlay="@style/roundedImageView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/profileImageView"
+        android:layout_width="190dp"
+        android:layout_height="190dp"
+        android:layout_margin="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/profile_screen_background"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/roundedImageView"
+        tools:srcCompat="@tools:sample/avatars" />
 
-        <ImageView
-            android:id="@+id/multiplePostsIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            android:src="@drawable/multiple_posts"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="@+id/profileImageView"
-            app:layout_constraintTop_toTopOf="@+id/profileImageView" />
+    <ImageView
+        android:id="@+id/multiplePostsIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:src="@drawable/multiple_posts"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/profileImageView"
+        app:layout_constraintTop_toTopOf="@+id/profileImageView" />
 
-        <ImageView
-            android:id="@+id/reelIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            android:src="@drawable/instagram_reels"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="@+id/profileImageView"
-            app:layout_constraintTop_toTopOf="@+id/profileImageView" />
-<!--    </androidx.cardview.widget.CardView>-->
+    <ImageView
+        android:id="@+id/reelIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:src="@drawable/instagram_reels"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/profileImageView"
+        app:layout_constraintTop_toTopOf="@+id/profileImageView" />
+
+    <ImageView
+        android:id="@+id/heart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/ic_heart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/likeCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/instagram_sans_bold"
+        android:textColor="@color/text_color_dark"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/heart" />
+    <!--    </androidx.cardview.widget.CardView>-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

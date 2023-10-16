@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Recycler
@@ -28,6 +29,7 @@ class ProfileAdapter constructor(
         var imageView = view.findViewById<ImageView>(R.id.profileImageView)
         var muliplePostsIcon = view.findViewById<ImageView>(R.id.multiplePostsIcon)
         var reelIcon = view.findViewById<ImageView>(R.id.reelIcon)
+        var likeCount = view.findViewById<TextView>(R.id.likeCount)
     }
 
 
@@ -82,9 +84,29 @@ class ProfileAdapter constructor(
         } else if (photo.node.typename == "GraphVideo") {
             holder.reelIcon.visibility = View.VISIBLE
             holder.muliplePostsIcon.visibility = View.INVISIBLE
-        } else{
+        } else {
             holder.muliplePostsIcon.visibility = View.INVISIBLE
             holder.reelIcon.visibility = View.INVISIBLE
+        }
+
+        if (photo.node.edgeMediaPreviewLike.count.toInt() in 100000000..999999999) {
+            holder.likeCount.text =
+                "${photo.node.edgeMediaPreviewLike.count.toString().substring(0, 3)} M"
+        } else if (photo.node.edgeMediaPreviewLike.count?.toInt() in 1000000..9999999) {
+            holder.likeCount.text = "${
+                photo.node.edgeMediaPreviewLike.count.toString().substring(0, 1)
+            }.${photo.node.edgeMediaPreviewLike.count.toString().substring(1, 2)} M"
+        } else if (photo.node.edgeMediaPreviewLike.count.toInt() in 10000000..99999999) {
+            Log.i("millions", "millions")
+            holder.likeCount.text = "${
+                photo.node.edgeMediaPreviewLike.count.toString().substring(0, 2)
+            }.${photo.node.edgeMediaPreviewLike.count.toString().substring(2, 3)} M"
+        } else if (photo.node.edgeMediaPreviewLike.count.toInt() in 100000..999999) {
+            holder.likeCount.text =
+                "${photo.node.edgeMediaPreviewLike.count.toString().substring(0, 3)} K"
+            Log.i("millions123", "billions")
+        } else {
+            holder.likeCount.text = photo.node.edgeMediaPreviewLike.count.toString()
         }
     }
 
