@@ -8,24 +8,62 @@
     <ImageView
         android:id="@+id/reelImageView"
         android:layout_width="130dp"
-        android:layout_height="160dp"
+        android:layout_height="237dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/profile_screen_background"
+        android:scaleType="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        android:layout_marginTop="5dp"
-        android:scaleType="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
-   <!-- <ImageView
-        android:id="@+id/reelIcon"
+    <ImageView
+        android:id="@+id/playIconReels"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:visibility="invisible"
-        android:layout_marginEnd="5dp"
-        android:src="@drawable/instagram_reels"
-        app:layout_constraintEnd_toEndOf="@+id/profileImageView"
-        app:layout_constraintTop_toTopOf="@+id/profileImageView" />-->
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_play"
+        app:layout_constraintBottom_toBottomOf="@+id/reelImageView"
+        app:layout_constraintStart_toStartOf="@+id/reelImageView" />
+
+    <TextView
+        android:id="@+id/noOfViews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="@font/instagram_sans_bold"
+        android:text="This is the no of views"
+        android:textColor="@color/text_color_dark"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/reelImageView"
+        app:layout_constraintStart_toEndOf="@+id/playIconReels" />
+
+<!--
+    <TextView
+        android:id="@+id/durationReel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/background_duration_reel"
+        android:fontFamily="@font/instagram_sans_bold"
+        android:text="This is the duration"
+        android:textColor="@color/text_color_dark"
+        android:padding="8dp"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="@+id/reelImageView"
+        app:layout_constraintTop_toTopOf="@+id/reelImageView" />
+-->
+
+    <!-- <ImageView
+         android:id="@+id/reelIcon"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="5dp"
+         android:visibility="invisible"
+         android:layout_marginEnd="5dp"
+         android:src="@drawable/instagram_reels"
+         app:layout_constraintEnd_toEndOf="@+id/profileImageView"
+         app:layout_constraintTop_toTopOf="@+id/profileImageView" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>
