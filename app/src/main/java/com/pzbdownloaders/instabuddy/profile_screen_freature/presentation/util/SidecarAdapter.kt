@@ -67,6 +67,7 @@ class SidecarAdapter constructor(
                 exoPlayer.setMediaItem(mediaItem)
                 exoPlayer.prepare()
                 holder.videoPlayer.visibility = View.VISIBLE
+                holder.music.visibility = View.INVISIBLE
                 exoPlayer.playWhenReady = true
             } else {
                 Glide.with(context).load(sideCar[position]).into(holder.imageView)

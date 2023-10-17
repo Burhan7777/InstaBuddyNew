@@ -27,5 +27,5 @@ WHAT TO DO NEXT
 25) Loading next posts:
 26) Add hashtag search: 
 27) Add location search:
-28) Add music in reels:
+28) Add music in reels: DONE
 29) Add tagged users in photos and reels:
