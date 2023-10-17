@@ -55,7 +55,7 @@ class DownloadManager @Inject constructor(private val application: Context) {
                 .setTitle("InstaBuddy-Reel-${GetCurrentDate.getCurrentDate()}${UUID.randomUUID()}.mp4")
                 .setDestinationInExternalPublicDir(
                     Environment.DIRECTORY_DOWNLOADS,
-                    "InstaBuddy-Reel-${GetCurrentDate.getCurrentDate()}${UUID.randomUUID()}.mp4"
+                    "InstaBuddy/InstaBuddy-Reel-${GetCurrentDate.getCurrentDate()}${UUID.randomUUID()}.mp4"
                 ).setAllowedOverMetered(true)
         downloadManager?.enqueue(request)
     }
@@ -79,6 +79,27 @@ class DownloadManager @Inject constructor(private val application: Context) {
                 ).setAllowedOverMetered(true)
         downloadManager?.enqueue(request)
     }
+
+    fun downloadMusic(data: String?) {
+        val downloadManager =
+            ContextCompat.getSystemService(
+                application.applicationContext,
+                DownloadManager::class.java
+            )
+        val request =
+            DownloadManager.Request(data?.toUri())
+                .setMimeType("audio/mp4")
+                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                .setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI)
+                .setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE)
+                .setTitle("InstaBuddy-Audio-${GetCurrentDate.getCurrentDate()}${UUID.randomUUID()}.mp3")
+                .setDestinationInExternalPublicDir(
+                    Environment.DIRECTORY_DOWNLOADS,
+                    "InstaBuddy/InstaBuddy-Audio-${GetCurrentDate.getCurrentDate()}${UUID.randomUUID()}.mp3"
+                ).setAllowedOverMetered(true)
+        downloadManager?.enqueue(request)
+    }
+
 
     fun newDownload(data: String) {
         var task =

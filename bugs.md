@@ -14,3 +14,4 @@ BUGS
 12) Tabs of profile should have corners:
 13) Fix the ripple effect of search history (Delete buttons and username textview):
 14) Fix multiple search requests :
+15) App should tell if the user reached the end of posts and reels:

@@ -13,6 +13,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.exoplayer2.ExoPlayer
@@ -48,6 +49,7 @@ class SidecarScreen : Fragment() {
         val args: SidecarScreenArgs by navArgs()
         val imageUrl = args.imageUrl
         val sideCar = args.sidecar
+        val musicUrl = args.musicUrl
         exoPlayer = ExoPlayer.Builder(requireContext()).build()
 
         //   (requireActivity() as AppCompatActivity).supportActionBar?
@@ -56,7 +58,7 @@ class SidecarScreen : Fragment() {
         Log.i("imageurl", imageUrl.toString())
 //        Log.i("sidecar1234", sideCar!![1].toString())
 
-        sidecarAdapter = SidecarAdapter(imageUrl, sideCar, requireContext(), exoPlayer)
+        sidecarAdapter = SidecarAdapter(imageUrl, sideCar, requireContext(), exoPlayer, musicUrl,findNavController())
         binding.sidecarViewPager.adapter = sidecarAdapter
 
         binding.sidecarViewPager.registerOnPageChangeCallback(object :

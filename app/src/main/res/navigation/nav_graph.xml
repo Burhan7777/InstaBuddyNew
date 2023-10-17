@@ -81,5 +81,23 @@
             app:argType="string[]"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_sidecarViewPager_to_musicScreen"
+            app:destination="@id/musicScreen" />
+        <argument
+            android:name="musicUrl"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/musicScreen"
+        android:name="com.pzbdownloaders.instabuddy.profile_screen_freature.presentation.fragments.MusicScreen"
+        android:label="fragment_music_screen"
+        tools:layout="@layout/fragment_music_screen" >
+        <argument
+            android:name="musicUrl"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 </navigation>

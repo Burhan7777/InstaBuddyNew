@@ -25,3 +25,7 @@ WHAT TO DO NEXT
 23) Download button at the bottom : DONE
 24) Download all button at the top: DONE
 25) Loading next posts:
+26) Add hashtag search: 
+27) Add location search:
+28) Add music in reels:
+29) Add tagged users in photos and reels:

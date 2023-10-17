@@ -107,4 +107,10 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
+    fun downloadMusic(url:String){
+        viewModelScope.launch(Dispatchers.IO) {
+            downloadManager.downloadMusic(url)
+        }
+    }
+
 }

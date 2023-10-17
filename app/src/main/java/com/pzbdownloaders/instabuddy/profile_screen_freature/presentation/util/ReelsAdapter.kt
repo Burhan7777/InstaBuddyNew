@@ -30,7 +30,7 @@ class ReelsAdapter(
     class ReelsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageView = view.findViewById<ImageView>(R.id.reelImageView)
         val noOfViews = view.findViewById<TextView>(R.id.noOfViews)
-      //  val duration = view.findViewById<TextView>(R.id.durationReel)
+        //  val duration = view.findViewById<TextView>(R.id.durationReel)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReelsViewHolder {
@@ -43,10 +43,9 @@ class ReelsAdapter(
         var reel = listOfReels!![position]
         Glide.with(context).load(reel.media.imageVersions2.candidates[0].url).into(holder.imageView)
         if (reel.media.viewCount == null) {
-            if(reel.media.playCount?.toInt() in 100000000..999999999 ){
-                holder.noOfViews.text = "${reel.media.playCount.toString().substring(0,3)} M"
-            }
-            else if (reel.media.playCount?.toInt() in 1000000..9999999) {
+            if (reel.media.playCount?.toInt() in 100000000..999999999) {
+                holder.noOfViews.text = "${reel.media.playCount.toString().substring(0, 3)} M"
+            } else if (reel.media.playCount?.toInt() in 1000000..9999999) {
                 holder.noOfViews.text = "${
                     reel.media.playCount.toString().substring(0, 1)
                 }.${reel.media.playCount.toString().substring(1, 2)} M"
@@ -62,10 +61,9 @@ class ReelsAdapter(
                 holder.noOfViews.text = reel.media.playCount.toString()
             }
         } else {
-            if(reel.media.viewCount?.toInt() in 100000000..999999999 ){
-                holder.noOfViews.text = "${reel.media.viewCount.toString().substring(0,3)} M"
-            }
-            else if (reel.media.viewCount?.toInt() in 1000000..9999999) {
+            if (reel.media.viewCount?.toInt() in 100000000..999999999) {
+                holder.noOfViews.text = "${reel.media.viewCount.toString().substring(0, 3)} M"
+            } else if (reel.media.viewCount?.toInt() in 1000000..9999999) {
                 holder.noOfViews.text = "${
                     reel.media.viewCount.toString().substring(0, 1)
                 }.${reel.media.viewCount.toString().substring(1, 2)} M"
@@ -82,18 +80,31 @@ class ReelsAdapter(
             }
         }
 
-     /*   if (reel.media.videoDuration.toInt() in 0..9) {
-            holder.duration.text = "0.0${reel.media.videoDuration.toString().substring(0, 1)} s"
-        } else if (reel.media.videoDuration.toInt() in 10..59) {
-            holder.duration.text = "0.${reel.media.videoDuration.toString().substring(0, 2)} s"
-        } else {
-            holder.duration.text = reel.media.videoDuration.toString()
-        }*/
+        /*   if (reel.media.videoDuration.toInt() in 0..9) {
+               holder.duration.text = "0.0${reel.media.videoDuration.toString().substring(0, 1)} s"
+           } else if (reel.media.videoDuration.toInt() in 10..59) {
+               holder.duration.text = "0.${reel.media.videoDuration.toString().substring(0, 2)} s"
+           } else {
+               holder.duration.text = reel.media.videoDuration.toString()
+           }*/
 
         holder.imageView.setOnClickListener {
-            var action =
-                ProfileScreenFragmentDirections.actionProfileScreenFragmentToSidecarViewPager(reel.media.videoVersions[0].url)
-            navController.navigate(action)
+
+            if (reel.media.clipsMetadata?.originalSoundInfo != null) {
+                var action =
+                    ProfileScreenFragmentDirections.actionProfileScreenFragmentToSidecarViewPager(
+                        reel.media.videoVersions[0].url,
+                        musicUrl = reel.media.clipsMetadata?.originalSoundInfo?.progressiveDownloadUrl
+                    )
+                navController.navigate(action)
+            } else {
+                var action =
+                    ProfileScreenFragmentDirections.actionProfileScreenFragmentToSidecarViewPager(
+                        reel.media.videoVersions[0].url,
+                        musicUrl = reel.media.clipsMetadata?.musicInfo?.musicAssetInfo?.progressiveDownloadUrl
+                    )
+                navController.navigate(action)
+            }
         }
     }
 
