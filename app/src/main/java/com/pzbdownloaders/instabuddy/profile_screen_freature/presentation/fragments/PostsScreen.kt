@@ -83,9 +83,9 @@ class PostsScreen : Fragment() {
             binding.profileShimmer4.visibility = View.INVISIBLE
 
             binding.profileRecyclerView.visibility = View.VISIBLE
-         //   binding.controlButtonsRoot.visibility = View.VISIBLE
+            //   binding.controlButtonsRoot.visibility = View.VISIBLE
             binding.profileNextButton.visibility = View.VISIBLE
-          //  binding.profilePreviousButton.visibility = View.VISIBLE
+            //  binding.profilePreviousButton.visibility = View.VISIBLE
 
             listOfPhotos =
                 it?.data?.user?.edgeOwnerToTimelineMedia?.edges?.toCollection(ArrayList())
