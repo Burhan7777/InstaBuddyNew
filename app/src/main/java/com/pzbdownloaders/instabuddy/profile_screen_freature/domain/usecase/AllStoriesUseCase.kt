@@ -19,6 +19,9 @@ class AllStoriesUseCase @Inject constructor(private val allStoriesRepo: AllStori
             is GetSearchResults.Error -> {
                 Triple(null, result.message, "Nothing")
             }
+            is GetSearchResults.SocketTimeOutException -> {
+                Triple(null, result.message, "Nothing")
+            }
         }
     }
 }

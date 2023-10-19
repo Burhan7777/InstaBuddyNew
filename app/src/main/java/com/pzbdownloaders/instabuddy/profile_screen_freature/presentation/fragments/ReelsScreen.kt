@@ -48,6 +48,7 @@ class ReelsScreen : Fragment() {
         Log.i("username123", username.toString())
 
         viewModel.getReels("https://apiprofi.com/api/reels_posts_username?user=$username")
+        Log.i("called123","called again")
 
         binding.profileVideoNextButton.text = "Next reels available"
         adapter = ReelsAdapter(listOfReels, requireContext(), findNavController())

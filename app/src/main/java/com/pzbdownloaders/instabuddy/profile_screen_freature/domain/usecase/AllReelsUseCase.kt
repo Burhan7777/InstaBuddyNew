@@ -20,10 +20,14 @@ class AllReelsUseCase @Inject constructor(private val allReelsRepo: AllReelsRepo
             is GetSearchResults.Error -> {
                 Triple(null, result.message, "Nothing")
             }
+            is GetSearchResults.SocketTimeOutException -> {
+                Triple(null, result.message, "Nothing")
+            }
+
         }
     }
 
-    suspend fun getNextReels(url: String): Pair<AllReels?, String?> {
+    /*suspend fun getNextReels(url: String): Pair<AllReels?, String?> {
         val result = allReelsRepo.getNextReel(url)
         return when (result) {
             is GetSearchResults.Success -> {
@@ -33,5 +37,5 @@ class AllReelsUseCase @Inject constructor(private val allReelsRepo: AllReelsRepo
                 Pair(null, result.message)
             }
         }
-    }
+    }*/
 }

@@ -9,7 +9,7 @@ import javax.inject.Inject
 class AllPostsUseCase @Inject constructor(private val allPostsRepo: AllPostsRepo) {
 
     var responseNumber = 0
-    suspend fun getAllPosts(url: String): Triple<AllPosts?, String?, String> {
+    suspend fun getAllPosts(url: String): Triple<AllPosts?, String?, String?> {
         val result = allPostsRepo.getAllPosts(url)
         return when (result) {
             is GetSearchResults.Success -> {
@@ -20,10 +20,13 @@ class AllPostsUseCase @Inject constructor(private val allPostsRepo: AllPostsRepo
             is GetSearchResults.Error -> {
                 Triple(null, result.message, "Nothing")
             }
+            is GetSearchResults.SocketTimeOutException -> {
+                Triple(null,null,null)
+            }
         }
     }
 
-    suspend fun getNextPosts(url: String): Pair<AllPosts?, String?> {
+/*    suspend fun getNextPosts(url: String): Pair<AllPosts?, String?> {
         val result = allPostsRepo.getNextPost(url)
         return when (result) {
             is GetSearchResults.Success -> {
@@ -33,5 +36,5 @@ class AllPostsUseCase @Inject constructor(private val allPostsRepo: AllPostsRepo
                 Pair(null, result.message)
             }
         }
-    }
+    }*/
 }

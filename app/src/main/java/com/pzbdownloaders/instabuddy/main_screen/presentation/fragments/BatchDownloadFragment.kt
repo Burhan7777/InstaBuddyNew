@@ -67,6 +67,12 @@ class BatchDownloadFragment : Fragment() {
                 binding.searchHistory.visibility = View.INVISIBLE
 
                 insertIntoSearchHistory(binding.searchEdittext.text.toString())
+
+                if (binding.failedToConnectServerTv.visibility == View.VISIBLE)
+                    binding.failedToConnectServerTv.visibility = View.INVISIBLE
+
+                if (binding.retryButton.visibility == View.VISIBLE)
+                    binding.retryButton.visibility = View.INVISIBLE
             }
             true
         }
@@ -80,6 +86,32 @@ class BatchDownloadFragment : Fragment() {
             binding.shimmerLayout4.visibility = View.INVISIBLE
             binding.shimmerLayout5.visibility = View.INVISIBLE
             binding.searchRecyclerView.visibility = View.VISIBLE
+        }
+
+        viewModel.searchResultsCode.observe(requireActivity()) {
+            if (it == "Failed to connect") {
+                binding.failedToConnectServerTv.visibility = View.VISIBLE
+                binding.retryButton.visibility = View.VISIBLE
+
+            }
+        }
+
+        binding.retryButton.setOnClickListener {
+            viewModel.getSearchResults("https://apiprofi.com/api/search?user=${binding.searchEdittext.text.toString()}")
+            binding.failedToConnectServerTv.visibility = View.INVISIBLE
+            binding.retryButton.visibility = View.INVISIBLE
+            binding.shimmerLayout.visibility = View.VISIBLE
+            binding.shimmerLayout1.visibility = View.VISIBLE
+            binding.shimmerLayout2.visibility = View.VISIBLE
+            binding.shimmerLayout3.visibility = View.VISIBLE
+            binding.shimmerLayout4.visibility = View.VISIBLE
+            binding.shimmerLayout5.visibility = View.VISIBLE
+            binding.shimmerLayout.startShimmerAnimation()
+            binding.shimmerLayout1.startShimmerAnimation()
+            binding.shimmerLayout2.startShimmerAnimation()
+            binding.shimmerLayout3.startShimmerAnimation()
+            binding.shimmerLayout4.startShimmerAnimation()
+            binding.shimmerLayout5.startShimmerAnimation()
         }
         adapter = SearchAdapter(listOfUsers, requireContext(), navController)
         binding.searchRecyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -111,7 +143,7 @@ class BatchDownloadFragment : Fragment() {
         }
 
         viewModel.searchUserName.observe(requireActivity()) {
-            Log.i("login","login")
+            Log.i("login", "login")
             viewModel.getSearchResults("https://apiprofi.com/api/search?user=${viewModel.searchUserName.value}")
             binding.searchEdittext.setText(viewModel.searchUserName.value)
             binding.searchHistory.visibility = View.INVISIBLE

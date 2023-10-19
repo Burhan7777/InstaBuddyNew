@@ -21,6 +21,9 @@ class ReelsAndPostsUseCase @Inject constructor(
             is GetSearchResults.Error -> {
                 // DO NOTHING
             }
+            is GetSearchResults.SocketTimeOutException ->{
+
+            }
         }
     }
 
@@ -33,6 +36,9 @@ class ReelsAndPostsUseCase @Inject constructor(
             }
             is GetSearchResults.Error -> {
                 // DO NOTHING
+            }
+            is GetSearchResults.SocketTimeOutException ->{
+
             }
         }
     }

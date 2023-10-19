@@ -19,6 +19,9 @@ class UserIdUseCase @Inject constructor(private val userIdRepo: UserIdRepo) {
             is GetSearchResults.Error -> {
                 Triple(null, result.message, "Nothing")
             }
+            is GetSearchResults.SocketTimeOutException -> {
+                Triple(null, result.message, "Nothing")
+            }
         }
     }
 }
