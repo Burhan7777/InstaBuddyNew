@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+app/src/main/java/com/pzbdownloaders/instabuddy/main_screen/data/api/DownloadAPI.kt
+app/src/main/java/com/pzbdownloaders/instabuddy/profile_screen_freature/data/api/ProfileAPI.kt
