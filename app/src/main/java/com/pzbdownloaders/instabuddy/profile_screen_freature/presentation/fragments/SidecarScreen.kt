@@ -58,7 +58,14 @@ class SidecarScreen : Fragment() {
         Log.i("imageurl", imageUrl.toString())
 //        Log.i("sidecar1234", sideCar!![1].toString())
 
-        sidecarAdapter = SidecarAdapter(imageUrl, sideCar, requireContext(), exoPlayer, musicUrl,findNavController())
+        sidecarAdapter = SidecarAdapter(
+            imageUrl,
+            sideCar,
+            requireContext(),
+            exoPlayer,
+            musicUrl,
+            findNavController()
+        )
         binding.sidecarViewPager.adapter = sidecarAdapter
 
         binding.sidecarViewPager.registerOnPageChangeCallback(object :
@@ -85,7 +92,11 @@ class SidecarScreen : Fragment() {
 
         binding.sideDownloadAllButton.setOnClickListener {
             for (i in sideCar?.indices ?: emptyList<Int>().indices) {
-                viewModel.downloadPost(sideCar!![i])
+                if (sideCar!![i].contains(".mp4")) {
+                    viewModel.downloadReel(sideCar[i])
+                } else {
+                    viewModel.downloadPost(sideCar[i])
+                }
             }
         }
 
