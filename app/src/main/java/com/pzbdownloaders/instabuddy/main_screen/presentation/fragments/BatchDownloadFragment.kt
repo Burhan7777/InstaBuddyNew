@@ -21,6 +21,7 @@ import com.pzbdownloaders.instabuddy.databinding.FragmentBatchDownloadBinding
 import com.pzbdownloaders.instabuddy.main_screen.data.model.SearchHistory
 import com.pzbdownloaders.instabuddy.main_screen.data.model.Users
 import com.pzbdownloaders.instabuddy.main_screen.presentation.util.SearchAdapter
+import com.pzbdownloaders.instabuddy.profile_screen_freature.domain.util.ResponseNumbers
 
 
 class BatchDownloadFragment : Fragment() {
@@ -40,6 +41,12 @@ class BatchDownloadFragment : Fragment() {
         binding = FragmentBatchDownloadBinding.inflate(inflater, container, false)
         navController = findNavController()
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        ResponseNumbers.responseNumberPosts = 0
+        Log.i("response1234","response")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -89,6 +96,7 @@ class BatchDownloadFragment : Fragment() {
         }
 
         viewModel.searchResultsCode.observe(requireActivity()) {
+            Log.i("connect123", it.toString())
             if (it == "Failed to connect") {
                 binding.failedToConnectServerTv.visibility = View.VISIBLE
                 binding.retryButton.visibility = View.VISIBLE

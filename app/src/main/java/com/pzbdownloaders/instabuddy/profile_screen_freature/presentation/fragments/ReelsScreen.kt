@@ -48,7 +48,6 @@ class ReelsScreen : Fragment() {
         Log.i("username123", username.toString())
 
         viewModel.getReels("https://apiprofi.com/api/reels_posts_username?user=$username")
-        Log.i("called123","called again")
 
         binding.profileVideoNextButton.text = "Next reels available"
         adapter = ReelsAdapter(listOfReels, requireContext(), findNavController())
@@ -70,9 +69,8 @@ class ReelsScreen : Fragment() {
             binding.profileShimmerVideo4.visibility = View.INVISIBLE
 
             binding.profileVideoRecyclerView.visibility = View.VISIBLE
-            //binding.controlVideoButtonsRoot.visibility = View.VISIBLE
             binding.profileVideoNextButton.visibility = View.VISIBLE
-            //  binding.profileVideoPreviousButton.visibility = View.VISIBLE
+          //  binding.controlVideoButtonsRoot.visibility = View.VISIBLE
 
             listOfReels = it?.items?.toCollection(ArrayList())
             if (check) {

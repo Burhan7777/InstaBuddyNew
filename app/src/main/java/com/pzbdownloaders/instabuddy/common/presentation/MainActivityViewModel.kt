@@ -70,8 +70,8 @@ class MainActivityViewModel @Inject constructor(
             //val pair =
             searchResults.postValue(searchUseCase.getUrlResult(url).first)
             searchResultsCode.postValue(searchUseCase.getUrlResult(url).second)
-            Log.i("search123", searchResults.value.toString())
         }
+        Log.i("search123", searchResultsCode.value.toString())
     }
 
     fun insertUserName(searchHistory: SearchHistory) {

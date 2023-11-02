@@ -1,5 +1,6 @@
 package com.pzbdownloaders.instabuddy.profile_screen_freature.presentation.fragments
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.pzbdownloaders.instabuddy.R
 import com.pzbdownloaders.instabuddy.databinding.FragmentPostsScreenBinding
 import com.pzbdownloaders.instabuddy.profile_screen_freature.data.model.Edge
+import com.pzbdownloaders.instabuddy.profile_screen_freature.domain.util.ResponseNumbers
 import com.pzbdownloaders.instabuddy.profile_screen_freature.presentation.util.ProfileAdapter
 import com.pzbdownloaders.instabuddy.profile_screen_freature.presentation.util.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +27,7 @@ class PostsScreen : Fragment() {
     lateinit var viewModel: ProfileViewModel
     lateinit var adapter: ProfileAdapter
     var listOfPhotos: ArrayList<Edge>? = ArrayList()
+    var endCursor: String? = null
     private var username: String? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +47,7 @@ class PostsScreen : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if(viewModel.getPostsAddedResponse.value?.toInt() == 2){
+        if (viewModel.getPostsAddedResponse.value?.toInt() == 2) {
             binding.profileNextButton.revertAnimation()
         }
     }
@@ -90,21 +93,66 @@ class PostsScreen : Fragment() {
             listOfPhotos =
                 it?.data?.user?.edgeOwnerToTimelineMedia?.edges?.toCollection(ArrayList())
             Log.i("posts123", it?.data?.user?.edgeOwnerToTimelineMedia?.edges?.size.toString())
+            Log.i("check123", check.toString())
             if (check) {
                 adapter.update(listOfPhotos)
+                Log.i("burhan123", "burhan")
             }
-
         }
 
         viewModel.getPostsResponse.observe(requireActivity()) {
             //   if (it == "Response 200") {
-            if (checkNextPost) {
-                check = false
+
+
+            if (checkNextPost && it != "Failed to connect" && it != "Failed to connect next") {
+                endCursor =
+                    viewModel.getPosts.value?.data?.user?.edgeOwnerToTimelineMedia?.pageInfo?.endCursor
+                viewModel.getPosts("https://apiprofi.com/api/posts_username?user=$username&end_cursor=$endCursor")
+                check  = false
+                Log.i("endcursor123", "endCursor.toString()")
+            }
+            checkNextPost = false
+            Log.i("connect123", it.toString())
+
+            if (it == "Failed to connect") {
+                binding.failedToConnectServerPostTv.visibility = View.VISIBLE
+                binding.retryButtonPosts.visibility = View.VISIBLE
+                if (binding.profileRecyclerView.visibility == View.VISIBLE)
+                    binding.profileRecyclerView.visibility = View.INVISIBLE
+                if (binding.profileNextButton.visibility == View.VISIBLE)
+                    binding.profileNextButton.visibility = View.INVISIBLE
+
+                Log.i("failed456", "failed456")
+            }
+            if (it == "Failed to connect next" && viewModel.getPostsAddedResponse.value?.toInt() != 0) {
+                binding.profileNextButton.revertAnimation()
+                binding.profileNextButton.text = "Failed loading next posts. Click to try again"
+                Log.i("failed123", "failed123")
+            }
+        }
+
+        binding.retryButtonPosts.setOnClickListener {
+            check = true
+            checkNextPost = true
+            if (viewModel.getPostsResponse.value == "Failed to connect") {
+                viewModel.getPosts("https://apiprofi.com/api/posts_username?user=$username")
+            } else if (viewModel.getPostsResponse.value == "Failed to connect next") {
                 var endCursor =
                     viewModel.getPosts.value?.data?.user?.edgeOwnerToTimelineMedia?.pageInfo?.endCursor
                 viewModel.getPosts("https://apiprofi.com/api/posts_username?user=$username&end_cursor=$endCursor")
+
             }
-            checkNextPost = false
+            binding.profileShimmer1.visibility = View.VISIBLE
+            binding.profileShimmer2.visibility = View.VISIBLE
+            binding.profileShimmer3.visibility = View.VISIBLE
+            binding.profileShimmer4.visibility = View.VISIBLE
+            binding.failedToConnectServerPostTv.visibility = View.INVISIBLE
+            binding.retryButtonPosts.visibility = View.INVISIBLE
+
+            binding.profileShimmer1.startShimmerAnimation()
+            binding.profileShimmer2.startShimmerAnimation()
+            binding.profileShimmer3.startShimmerAnimation()
+            binding.profileShimmer4.startShimmerAnimation()
         }
 
         viewModel.getPostsAddedResponse.observe(requireActivity()) {
@@ -129,14 +177,43 @@ class PostsScreen : Fragment() {
         //  if (viewModel.getPostsAddedResponse.value == "2") {
         binding.profileNextButton.setOnClickListener {
             binding.profileNextButton.startAnimation()
-            adapter.update(
-                viewModel.getPosts.value?.data?.user?.edgeOwnerToTimelineMedia?.edges?.toCollection(
-                    ArrayList()
+            if (viewModel.getPostsResponse.value == "Failed to connect next") {
+                if (binding.profileRecyclerView.visibility == View.VISIBLE)
+                    binding.profileRecyclerView.visibility = View.INVISIBLE
+                if (binding.profileNextButton.visibility == View.VISIBLE)
+                    binding.profileNextButton.visibility = View.INVISIBLE
+
+                binding.profileShimmer1.visibility = View.VISIBLE
+                binding.profileShimmer2.visibility = View.VISIBLE
+                binding.profileShimmer3.visibility = View.VISIBLE
+                binding.profileShimmer4.visibility = View.VISIBLE
+                binding.failedToConnectServerPostTv.visibility = View.INVISIBLE
+                binding.retryButtonPosts.visibility = View.INVISIBLE
+
+                binding.profileShimmer1.startShimmerAnimation()
+                binding.profileShimmer2.startShimmerAnimation()
+                binding.profileShimmer3.startShimmerAnimation()
+                binding.profileShimmer4.startShimmerAnimation()
+
+                //      var endCursor = viewModel.getPosts.value?.data?.user?.edgeOwnerToTimelineMedia?.pageInfo?.endCursor
+                viewModel.getPosts("https://apiprofi.com/api/posts_username?user=$username&end_cursor=$endCursor")
+                checkNextPost = true
+                check = true
+                Log.i("nextpost123", viewModel.getPosts.value.toString())
+                viewModel.getPostsResponse.value = ""
+                ResponseNumbers.responseNumberPosts = 0
+            } else {
+                adapter.update(
+                    viewModel.getPosts.value?.data?.user?.edgeOwnerToTimelineMedia?.edges?.toCollection(
+                        ArrayList()
+                    )
                 )
-            )
-            checkNextPost = true
-            viewModel.getPostsResponse.value = ""
-            binding.profileRecyclerView.visibility = View.VISIBLE
+                checkNextPost = true
+                viewModel.getPostsResponse.value = ""
+            }
+            //  binding.profileRecyclerView.visibility = View.VISIBLE
+
+
             //  }
             Log.i("number123", viewModel.getPostsAddedResponse.value.toString())
         }

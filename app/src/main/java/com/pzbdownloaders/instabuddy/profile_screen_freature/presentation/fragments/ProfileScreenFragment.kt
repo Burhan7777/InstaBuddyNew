@@ -71,6 +71,7 @@ class ProfileScreenFragment : Fragment() {
         var profileViewPagerAdapter = ProfileViewPagerAdapter(requireActivity())
         profileViewPagerAdapter.username = username
         binding.profileViewPager.adapter = profileViewPagerAdapter
+      //  binding.profileViewPager.isSaveEnabled = false
 
         TabLayoutMediator(binding.profileTabLayout, binding.profileViewPager) { tab, position ->
             if (position == 0)

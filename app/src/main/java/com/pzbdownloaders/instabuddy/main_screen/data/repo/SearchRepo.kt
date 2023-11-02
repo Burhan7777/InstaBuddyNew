@@ -16,6 +16,7 @@ class SearchRepo @Inject constructor(private val downloadAPI: DownloadAPI) {
         try {
             response = downloadAPI.getSearchResults(url)
         } catch (exception: SocketTimeoutException) {
+            Log.i("Repo123", "repo123")
             return GetSearchResults.SocketTimeOutException(null, "Failed to connect")
         }
         return if (response.isSuccessful) {

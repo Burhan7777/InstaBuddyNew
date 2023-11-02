@@ -17,9 +17,11 @@ class SearchUseCase @Inject constructor(private val searchRepo: SearchRepo) {
                 Pair(result.data, "Response 200")
             }
             is GetSearchResults.Error -> {
+                Log.i("users4567", result.message.toString())
                 Pair(null, result.message)
             }
             is GetSearchResults.SocketTimeOutException -> {
+                Log.i("usecase123",result.message.toString())
                 Pair(null, result.message)
             }
         }

@@ -16,7 +16,7 @@ interface DownloadAPI {
     suspend fun getSearchResults(@Url url: String): Response<Search>
 
     @Headers(
-        "Authorization:Bearer 32|RtML7bduxzU0fFt3BgcJqJUGgR5eCPGVt9hvn0gW"
+        "Authorization:Bearer 32|git RtML7bduxzU0fFt3BgcJqJUGgR5eCPGVt9hvn0gW"
     )
     @GET
     suspend fun getReel(@Url url: String): Response<Reels>
