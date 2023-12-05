@@ -12,17 +12,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.pzbdownloaders.instabuddy.R
 import com.pzbdownloaders.instabuddy.profile_screen_freature.data.model.Item
+import com.pzbdownloaders.instabuddy.profile_screen_freature.data.model.ItemAllReel
 import com.pzbdownloaders.instabuddy.profile_screen_freature.presentation.fragments.ProfileScreenFragmentDirections
 import com.pzbdownloaders.instabuddy.profile_screen_freature.presentation.fragments.ReelsScreenDirections
 
 class ReelsAdapter(
-    private var listOfReels: ArrayList<Item>?,
+    private var listOfReels: ArrayList<ItemAllReel>?,
     private val context: Context,
     private val navController: NavController
 ) :
     RecyclerView.Adapter<ReelsAdapter.ReelsViewHolder>() {
 
-    fun update(list: ArrayList<Item>?) {
+    fun update(list: ArrayList<ItemAllReel>?) {
         this.listOfReels = list
         notifyDataSetChanged()
     }
@@ -41,44 +42,63 @@ class ReelsAdapter(
 
     override fun onBindViewHolder(holder: ReelsViewHolder, position: Int) {
         var reel = listOfReels!![position]
-        Glide.with(context).load(reel.media.imageVersions2.candidates[0].url).into(holder.imageView)
-        if (reel.media.viewCount == null) {
-            if (reel.media.playCount?.toInt() in 100000000..999999999) {
-                holder.noOfViews.text = "${reel.media.playCount.toString().substring(0, 3)} M"
-            } else if (reel.media.playCount?.toInt() in 1000000..9999999) {
-                holder.noOfViews.text = "${
-                    reel.media.playCount.toString().substring(0, 1)
-                }.${reel.media.playCount.toString().substring(1, 2)} M"
-            } else if (reel.media.playCount?.toInt() in 10000000..99999999) {
-                Log.i("millions", "millions")
-                holder.noOfViews.text = "${
-                    reel.media.playCount.toString().substring(0, 2)
-                }.${reel.media.playCount.toString().substring(2, 3)} M"
-            } else if (reel.media.playCount?.toInt() in 100000..999999) {
-                holder.noOfViews.text = "${reel.media.playCount.toString().substring(0, 3)} K"
-                Log.i("millions123", "billions")
-            } else {
-                holder.noOfViews.text = reel.media.playCount.toString()
-            }
-        } else {
-            if (reel.media.viewCount?.toInt() in 100000000..999999999) {
-                holder.noOfViews.text = "${reel.media.viewCount.toString().substring(0, 3)} M"
-            } else if (reel.media.viewCount?.toInt() in 1000000..9999999) {
-                holder.noOfViews.text = "${
-                    reel.media.viewCount.toString().substring(0, 1)
-                }.${reel.media.viewCount.toString().substring(1, 2)} M"
-            } else if (reel.media.viewCount?.toInt() in 10000000..99999999) {
-                Log.i("millions", "millions")
-                holder.noOfViews.text = "${
-                    reel.media.viewCount.toString().substring(0, 2)
-                }.${reel.media.viewCount.toString().substring(2, 3)} M"
-            } else if (reel.media.viewCount?.toInt() in 100000..999999) {
-                holder.noOfViews.text = "${reel.media.viewCount.toString().substring(0, 3)} K"
-                Log.i("millions123", "billions")
-            } else {
-                holder.noOfViews.text = reel.media.viewCount.toString()
-            }
+        if (reel.media.imageVersions2.candidates.size > 4) {
+            Glide.with(context).load(reel.media.imageVersions2.candidates[4].url)
+                .into(holder.imageView)
         }
+        if (reel.media.imageVersions2.candidates.size > 3) {
+            Glide.with(context).load(reel.media.imageVersions2.candidates[3].url)
+                .into(holder.imageView)
+        }
+        if (reel.media.imageVersions2.candidates.size > 2) {
+            Glide.with(context).load(reel.media.imageVersions2.candidates[2].url)
+                .into(holder.imageView)
+        }
+        if (reel.media.imageVersions2.candidates.size >1) {
+            Glide.with(context).load(reel.media.imageVersions2.candidates[1].url)
+                .into(holder.imageView)
+        }
+        if (reel.media.imageVersions2.candidates.isNotEmpty()) {
+            Glide.with(context).load(reel.media.imageVersions2.candidates[0].url)
+                .into(holder.imageView)
+        }
+        //  if (reel.media.viewCount == null) {
+        if (reel.media.playCount?.toInt() in 100000000..999999999) {
+            holder.noOfViews.text = "${reel.media.playCount.toString().substring(0, 3)} M"
+        } else if (reel.media.playCount?.toInt() in 1000000..9999999) {
+            holder.noOfViews.text = "${
+                reel.media.playCount.toString().substring(0, 1)
+            }.${reel.media.playCount.toString().substring(1, 2)} M"
+        } else if (reel.media.playCount?.toInt() in 10000000..99999999) {
+            Log.i("millions", "millions")
+            holder.noOfViews.text = "${
+                reel.media.playCount.toString().substring(0, 2)
+            }.${reel.media.playCount.toString().substring(2, 3)} M"
+        } else if (reel.media.playCount?.toInt() in 100000..999999) {
+            holder.noOfViews.text = "${reel.media.playCount.toString().substring(0, 3)} K"
+            Log.i("millions123", "billions")
+        } else {
+            holder.noOfViews.text = reel.media.playCount.toString()
+        }
+        /*  } else {
+              if (reel.media.viewCount?.toInt() in 100000000..999999999) {
+                  holder.noOfViews.text = "${reel.media.viewCount.toString().substring(0, 3)} M"
+              } else if (reel.media.viewCount?.toInt() in 1000000..9999999) {
+                  holder.noOfViews.text = "${
+                      reel.media.viewCount.toString().substring(0, 1)
+                  }.${reel.media.viewCount.toString().substring(1, 2)} M"
+              } else if (reel.media.viewCount?.toInt() in 10000000..99999999) {
+                  Log.i("millions", "millions")
+                  holder.noOfViews.text = "${
+                      reel.media.viewCount.toString().substring(0, 2)
+                  }.${reel.media.viewCount.toString().substring(2, 3)} M"
+              } else if (reel.media.viewCount?.toInt() in 100000..999999) {
+                  holder.noOfViews.text = "${reel.media.viewCount.toString().substring(0, 3)} K"
+                  Log.i("millions123", "billions")
+              } else {
+                  holder.noOfViews.text = reel.media.viewCount.toString()
+              }
+          }*/
 
         /*   if (reel.media.videoDuration.toInt() in 0..9) {
                holder.duration.text = "0.0${reel.media.videoDuration.toString().substring(0, 1)} s"
@@ -90,21 +110,21 @@ class ReelsAdapter(
 
         holder.imageView.setOnClickListener {
 
-            if (reel.media.clipsMetadata?.originalSoundInfo != null) {
-                var action =
-                    ProfileScreenFragmentDirections.actionProfileScreenFragmentToSidecarViewPager(
-                        reel.media.videoVersions[0].url,
-                        musicUrl = reel.media.clipsMetadata?.originalSoundInfo?.progressiveDownloadUrl
-                    )
-                navController.navigate(action)
-            } else {
-                var action =
-                    ProfileScreenFragmentDirections.actionProfileScreenFragmentToSidecarViewPager(
-                        reel.media.videoVersions[0].url,
-                        musicUrl = reel.media.clipsMetadata?.musicInfo?.musicAssetInfo?.progressiveDownloadUrl
-                    )
-                navController.navigate(action)
-            }
+            //.    if (reel.media.clipsMetadata?.originalSoundInfo != null) {
+            var action =
+                ProfileScreenFragmentDirections.actionProfileScreenFragmentToSidecarViewPager(
+                    reel.media.videoVersions[0].url,
+                    musicUrl = reel.media.clipsMetadata?.originalSoundInfo?.progressiveDownloadUrl
+                )
+            navController.navigate(action)
+            /*     } else {
+                     var action =
+                         ProfileScreenFragmentDirections.actionProfileScreenFragmentToSidecarViewPager(
+                             reel.media.videoVersions[0].url,
+                             musicUrl = reel.media.clipsMetadata?.musicInfo?.musicAssetInfo?.progressiveDownloadUrl
+                         )
+                     navController.navigate(action)
+                 }*/
         }
     }
 

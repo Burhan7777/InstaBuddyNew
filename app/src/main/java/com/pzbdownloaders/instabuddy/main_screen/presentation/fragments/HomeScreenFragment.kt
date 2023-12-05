@@ -24,6 +24,7 @@ import com.pzbdownloaders.instabuddy.R
 import com.pzbdownloaders.instabuddy.common.domain.util.GetCurrentDate
 import com.pzbdownloaders.instabuddy.common.presentation.MainActivityViewModel
 import com.pzbdownloaders.instabuddy.databinding.FragmentHomeScreenBinding
+import com.pzbdownloaders.instabuddy.main_screen.data.model.ShortCode
 import com.pzbdownloaders.instabuddy.main_screen.domain.util.DownloadManager
 import java.util.*
 
@@ -64,12 +65,16 @@ class HomeScreenFragment : Fragment() {
         binding.downloadButton.setOnClickListener {
             mainActivityViewModel.getUrlShortCode(binding.link.text.toString())
             val url = mainActivityViewModel.getShortCode
-            if (url.contains("reel")) {
-                mainActivityViewModel.downloadReel(url)
+            if (binding.link.text.toString().contains("/reel/")) {
+                val shortCode = ShortCode(url)
+                mainActivityViewModel.downloadReel(shortCode)
+
             }
-            if (url.contains("post_info")) {
-                mainActivityViewModel.downloadPost(url)
+            if (binding.link.text.toString().contains("/p/")) {
+                var shortCode = ShortCode(shortcode = url)
+                mainActivityViewModel.downloadPost(shortCode)
                 Log.i("log123", url.toString())
+                Toast.makeText(context, "Reel", Toast.LENGTH_SHORT).show()
             }
 
             binding.downloadButton.startAnimation()

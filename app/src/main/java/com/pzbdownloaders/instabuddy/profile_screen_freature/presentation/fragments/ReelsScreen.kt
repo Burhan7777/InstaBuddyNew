@@ -10,11 +10,14 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.pzbdownloaders.instabuddy.R
 import com.pzbdownloaders.instabuddy.databinding.FragmentPostsScreenBinding
 import com.pzbdownloaders.instabuddy.databinding.FragmentReelsScreenBinding
+import com.pzbdownloaders.instabuddy.profile_screen_freature.data.model.AllReelsRawData
 import com.pzbdownloaders.instabuddy.profile_screen_freature.data.model.Edge
 import com.pzbdownloaders.instabuddy.profile_screen_freature.data.model.Item
+import com.pzbdownloaders.instabuddy.profile_screen_freature.data.model.ItemAllReel
 import com.pzbdownloaders.instabuddy.profile_screen_freature.presentation.util.ProfileAdapter
 import com.pzbdownloaders.instabuddy.profile_screen_freature.presentation.util.ProfileViewModel
 import com.pzbdownloaders.instabuddy.profile_screen_freature.presentation.util.ReelsAdapter
@@ -25,8 +28,9 @@ class ReelsScreen : Fragment() {
     lateinit var binding: FragmentReelsScreenBinding
     lateinit var viewModel: ProfileViewModel
     lateinit var adapter: ReelsAdapter
-    var listOfReels: ArrayList<Item>? = ArrayList()
+    var listOfReels: ArrayList<ItemAllReel>? = ArrayList()
     private var username: String? = null
+    var id: Long? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,16 +46,23 @@ class ReelsScreen : Fragment() {
 
         var arguments = arguments
         username = arguments?.getString("username")
+        id = arguments?.getString("id")?.toLong()
         var check = true
         var checkNextPost = true
         var someCheck = false
-        Log.i("username123", username.toString())
+        Log.i("username123", id.toString())
 
-        viewModel.getReels("https://apiprofi.com/api/reels_posts_username?user=$username")
+        //  viewModel.getReels("https://apiprofi.com/api/reels_posts_username?user=$username")
+
+        val allReelsRawData = AllReelsRawData(
+            id!!, 12
+        )
+
+        viewModel.getReels(allReelsRawData)
 
         binding.profileVideoNextButton.text = "Next reels available"
         adapter = ReelsAdapter(listOfReels, requireContext(), findNavController())
-        binding.profileVideoRecyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
+        binding.profileVideoRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.profileVideoRecyclerView.adapter = adapter
         binding.profileShimmerVideo1.startShimmerAnimation()
         binding.profileShimmerVideo2.startShimmerAnimation()
@@ -70,9 +81,9 @@ class ReelsScreen : Fragment() {
 
             binding.profileVideoRecyclerView.visibility = View.VISIBLE
             binding.profileVideoNextButton.visibility = View.VISIBLE
-          //  binding.controlVideoButtonsRoot.visibility = View.VISIBLE
+            //  binding.controlVideoButtonsRoot.visibility = View.VISIBLE
 
-            listOfReels = it?.items?.toCollection(ArrayList())
+            listOfReels = it?.response?.body?.items?.toCollection(ArrayList())
             if (check) {
                 adapter.update(listOfReels)
             }
@@ -84,8 +95,12 @@ class ReelsScreen : Fragment() {
             if (checkNextPost) {
                 check = false
                 var maxId =
-                    viewModel.getReels.value?.pagingInfo?.maxId
-                viewModel.getReels("https://apiprofi.com/api/reels_posts_username?user=$username&max_id=$maxId")
+                    viewModel.getReels.value?.response?.body?.pagingInfo?.maxId
+                val allReelsRawData1 = AllReelsRawData(
+                    id!!, 48, maxId
+                )
+                //        viewModel.getReels("https://apiprofi.com/api/reels_posts_username?user=$username&max_id=$maxId")
+                viewModel.getReels(allReelsRawData1)
             }
             checkNextPost = false
         }
@@ -112,8 +127,14 @@ class ReelsScreen : Fragment() {
         //  if (viewModel.getPostsAddedResponse.value == "2") {
         binding.profileVideoNextButton.setOnClickListener {
             binding.profileVideoNextButton.startAnimation()
+            binding.reelNestedScrollView.smoothScrollTo(0, binding.profileVideoRecyclerView.top)
+            (binding.profileVideoRecyclerView.layoutManager as LinearLayoutManager).smoothScrollToPosition(
+                binding.profileVideoRecyclerView,
+                null,
+                0
+            )
             adapter.update(
-                viewModel.getReels.value?.items?.toCollection(ArrayList())
+                viewModel.getReels.value?.response?.body?.items?.toCollection(ArrayList())
             )
             checkNextPost = true
             viewModel.getReelsResponse.value = ""

@@ -14,6 +14,7 @@ class ProfileViewPagerAdapter(activity: FragmentActivity) : FragmentStateAdapter
     var listOfFragments: ArrayList<Fragment> = ArrayList()
     var listOfNames: ArrayList<String> = ArrayList()
     var username: String? = null
+    var id: String? = null
 
     fun addFragments(fragment: Fragment, name: String) {
         listOfFragments.add(fragment)
@@ -24,17 +25,17 @@ class ProfileViewPagerAdapter(activity: FragmentActivity) : FragmentStateAdapter
         username = name
     }
 
-/*    override fun getCount(): Int {
-        return listOfFragments.size
-    }
+    /*    override fun getCount(): Int {
+            return listOfFragments.size
+        }
 
-    override fun getItem(position: Int): Fragment {
-        return listOfFragments[position]
-    }
+        override fun getItem(position: Int): Fragment {
+            return listOfFragments[position]
+        }
 
-    override fun getPageTitle(position: Int): CharSequence {
-        return listOfNames[position]
-    }*/
+        override fun getPageTitle(position: Int): CharSequence {
+            return listOfNames[position]
+        }*/
 
     override fun getItemCount(): Int {
         return 3
@@ -46,23 +47,29 @@ class ProfileViewPagerAdapter(activity: FragmentActivity) : FragmentStateAdapter
                 var postsScreen = PostsScreen()
                 var bundle = Bundle()
                 bundle.putString("username", username)
+                bundle.putString("id", id)
                 postsScreen.arguments = bundle
                 postsScreen
             }
+
             1 -> {
                 var reelsScreen = ReelsScreen()
                 var bundle = Bundle()
                 bundle.putString("username", username)
+                bundle.putString("id", id)
                 reelsScreen.arguments = bundle
                 reelsScreen
             }
+
             2 -> {
                 var storyScreen = StoryScreen()
                 var bundle = Bundle()
                 bundle.putString("username", username)
+                bundle.putString("id", id)
                 storyScreen.arguments = bundle
                 storyScreen
             }
+
             else -> {
                 ReelsScreen()
             }

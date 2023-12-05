@@ -13,13 +13,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.pzbdownloaders.instabuddy.R
+import com.pzbdownloaders.instabuddy.main_screen.data.model.UserSearch
 import com.pzbdownloaders.instabuddy.main_screen.data.model.Users
 import com.pzbdownloaders.instabuddy.main_screen.presentation.fragments.BatchDownloadFragmentDirections
 import com.pzbdownloaders.instabuddy.main_screen.presentation.fragments.FragmentViewPager
 import com.pzbdownloaders.instabuddy.main_screen.presentation.fragments.FragmentViewPagerDirections
 
 class SearchAdapter constructor(
-    private var listOfUsers: ArrayList<Users>?,
+    private var listOfUsers: ArrayList<UserSearch>?,
     private var context: Context,
     private val navController: NavController
 ) : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
@@ -34,7 +35,7 @@ class SearchAdapter constructor(
 
     }
 
-    fun updateListOfUsers(listOfUsers: ArrayList<Users>?) {
+    fun updateListOfUsers(listOfUsers: ArrayList<UserSearch>?) {
         this.listOfUsers = listOfUsers
         notifyDataSetChanged()
     }
@@ -47,10 +48,10 @@ class SearchAdapter constructor(
 
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
         var user = listOfUsers!![position]
-        Glide.with(context).load(user.user.profile_pic_url).circleCrop().into(holder.profilePicture)
-        holder.fullName.text = user.user.full_name
+        Glide.with(context).load(user.user.profilePicUrl).circleCrop().into(holder.profilePicture)
+        holder.fullName.text = user.user.fullName
         holder.userName.text = user.user.username
-        if (user.user.is_verified) {
+        if (user.user.isVerified) {
             holder.instagramCheck.visibility = View.VISIBLE
         } else {
             holder.instagramCheck.visibility = View.INVISIBLE
@@ -58,8 +59,9 @@ class SearchAdapter constructor(
 
         holder.cardView.setOnClickListener {
             val action = FragmentViewPagerDirections.actionFragmentViewPagerToProfileScreenFragment(
-                user.user.profile_pic_url,
-                user.user.username
+                user.user.profilePicUrl,
+                user.user.username,
+                user.user.pkId
             )
             navController.navigate(action)
         }

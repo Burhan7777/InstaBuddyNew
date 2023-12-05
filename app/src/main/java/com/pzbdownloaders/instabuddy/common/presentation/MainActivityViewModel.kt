@@ -5,8 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.pzbdownloaders.instabuddy.main_screen.data.model.RootSearch
 import com.pzbdownloaders.instabuddy.main_screen.data.model.Search
 import com.pzbdownloaders.instabuddy.main_screen.data.model.SearchHistory
+import com.pzbdownloaders.instabuddy.main_screen.data.model.SearchRawData
+import com.pzbdownloaders.instabuddy.main_screen.data.model.ShortCode
 import com.pzbdownloaders.instabuddy.main_screen.data.repo.SearchHistoryRepo
 import com.pzbdownloaders.instabuddy.main_screen.domain.usecase.GetUrlUseCase
 import com.pzbdownloaders.instabuddy.main_screen.domain.usecase.ReelsAndPostsUseCase
@@ -31,7 +34,7 @@ class MainActivityViewModel @Inject constructor(
 
     var getShortCode: String = ""
 
-    var searchResults: MutableLiveData<Search?> = MutableLiveData()
+    var searchResults: MutableLiveData<RootSearch?> = MutableLiveData()
         private set
 
     var searchResultsCode: MutableLiveData<String?> = MutableLiveData()
@@ -49,15 +52,15 @@ class MainActivityViewModel @Inject constructor(
         Log.i("file123", fileSize.value.toString())
     }
 
-    fun downloadPost(url: String) {
+    fun downloadPost(shortCode: ShortCode) {
         viewModelScope.launch(Dispatchers.IO) {
-            reelsAndPostsUseCase.getPosts(url)
+            reelsAndPostsUseCase.getPosts(shortCode)
         }
     }
 
-    fun downloadReel(url: String) {
+    fun downloadReel(shortCode: ShortCode) {
         viewModelScope.launch(Dispatchers.IO) {
-            reelsAndPostsUseCase.getReels(url)
+            reelsAndPostsUseCase.getReels(shortCode)
         }
     }
 
@@ -65,11 +68,11 @@ class MainActivityViewModel @Inject constructor(
         getShortCode = getUrlUseCase.getShortCode(url)
     }
 
-    fun getSearchResults(url: String) {
+    fun getSearchResults(searchRawData: SearchRawData) {
         viewModelScope.launch(Dispatchers.IO) {
             //val pair =
-            searchResults.postValue(searchUseCase.getUrlResult(url).first)
-            searchResultsCode.postValue(searchUseCase.getUrlResult(url).second)
+            searchResults.postValue(searchUseCase.getUrlResult(searchRawData).first)
+            searchResultsCode.postValue(searchUseCase.getUrlResult(searchRawData).second)
         }
         Log.i("search123", searchResultsCode.value.toString())
     }

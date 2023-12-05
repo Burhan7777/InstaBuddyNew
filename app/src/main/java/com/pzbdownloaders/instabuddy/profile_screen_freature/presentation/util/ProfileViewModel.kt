@@ -6,8 +6,14 @@ import androidx.lifecycle.viewModelScope
 import com.pzbdownloaders.instabuddy.main_screen.domain.usecase.ReelsAndPostsUseCase
 import com.pzbdownloaders.instabuddy.main_screen.domain.util.DownloadManager
 import com.pzbdownloaders.instabuddy.profile_screen_freature.data.model.AllPosts
+import com.pzbdownloaders.instabuddy.profile_screen_freature.data.model.AllPostsRawData
 import com.pzbdownloaders.instabuddy.profile_screen_freature.data.model.AllReels
+import com.pzbdownloaders.instabuddy.profile_screen_freature.data.model.AllReelsRawData
 import com.pzbdownloaders.instabuddy.profile_screen_freature.data.model.AllStories
+import com.pzbdownloaders.instabuddy.profile_screen_freature.data.model.AllStoriesRawData
+import com.pzbdownloaders.instabuddy.profile_screen_freature.data.model.RootAllPosts
+import com.pzbdownloaders.instabuddy.profile_screen_freature.data.model.RootAllReels
+import com.pzbdownloaders.instabuddy.profile_screen_freature.data.model.RootAllStories
 import com.pzbdownloaders.instabuddy.profile_screen_freature.data.model.UserId
 import com.pzbdownloaders.instabuddy.profile_screen_freature.domain.usecase.AllPostsUseCase
 import com.pzbdownloaders.instabuddy.profile_screen_freature.domain.usecase.AllReelsUseCase
@@ -32,7 +38,7 @@ class ProfileViewModel @Inject constructor(
     var getUserName: MutableLiveData<String> = MutableLiveData<String>()
 
 
-    var getPosts: MutableLiveData<AllPosts?> = MutableLiveData()
+    var getPosts: MutableLiveData<RootAllPosts?> = MutableLiveData()
         private set
 
     var getPostsResponse: MutableLiveData<String?> = MutableLiveData()
@@ -41,7 +47,7 @@ class ProfileViewModel @Inject constructor(
     var getPostsAddedResponse: MutableLiveData<String?> = MutableLiveData()
         private set
 
-    var getReels: MutableLiveData<AllReels?> = MutableLiveData()
+    var getReels: MutableLiveData<RootAllReels?> = MutableLiveData()
         private set
 
     var getReelsResponse: MutableLiveData<String?> = MutableLiveData()
@@ -50,7 +56,7 @@ class ProfileViewModel @Inject constructor(
     var getReelsAddedResponse: MutableLiveData<String?> = MutableLiveData()
         private set
 
-    var getStories: MutableLiveData<AllStories?> = MutableLiveData()
+    var getStories: MutableLiveData<RootAllStories?> = MutableLiveData()
         private set
 
     var getStoriesResponse: MutableLiveData<String?> = MutableLiveData()
@@ -59,18 +65,18 @@ class ProfileViewModel @Inject constructor(
     var getUserId: MutableLiveData<UserId?> = MutableLiveData()
         private set
 
-    fun getPosts(url: String) {
+    fun getPosts(allPostsRawData: AllPostsRawData) {
         viewModelScope.launch {
-            val pair = allPostsUseCase.getAllPosts(url)
+            val pair = allPostsUseCase.getAllPosts(allPostsRawData)
             getPosts.postValue(pair.first)
             getPostsResponse.postValue(pair.second)
             getPostsAddedResponse.postValue(pair.third)
         }
     }
 
-    fun getReels(url: String) {
+    fun getReels(allReelsRawData: AllReelsRawData) {
         viewModelScope.launch {
-            val triple = allReelsUseCase.getAllReels(url)
+            val triple = allReelsUseCase.getAllReels(allReelsRawData)
             getReels.postValue(triple.first)
             getReelsResponse.postValue(triple.second)
             getReelsAddedResponse.postValue(triple.third)
@@ -86,9 +92,9 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    fun getStories(url: String) {
+    fun getStories(allStories: AllStoriesRawData) {
         viewModelScope.launch {
-            val triple = allStoriesUseCase.getAllStories(url)
+            val triple = allStoriesUseCase.getAllStories(allStories)
             getStories.postValue(triple.first)
             getStoriesResponse.postValue(triple.second)
         }
@@ -107,7 +113,7 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    fun downloadMusic(url:String){
+    fun downloadMusic(url: String) {
         viewModelScope.launch(Dispatchers.IO) {
             downloadManager.downloadMusic(url)
         }

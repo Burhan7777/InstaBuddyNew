@@ -42,6 +42,9 @@
         <action
             android:id="@+id/action_profileScreenFragment_to_sidecarViewPager"
             app:destination="@id/sidecarViewPager" />
+        <argument
+            android:name="id"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/postsScreen"

@@ -5,18 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/storyImageView"
-        android:layout_width="130dp"
-        android:layout_height="160dp"
+        android:layout_width="185dp"
+        android:layout_height="185dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/profile_screen_background"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        android:layout_marginTop="5dp"
-        android:scaleType="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/roundedImageView"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/reelIconStories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/instagram_reels"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/storyImageView"
+        app:layout_constraintTop_toTopOf="@+id/storyImageView" />
 
     <!-- <ImageView
          android:id="@+id/reelIcon"

@@ -4,14 +4,16 @@ import android.util.Log
 import com.pzbdownloaders.instabuddy.main_screen.domain.util.GetSearchResults
 import com.pzbdownloaders.instabuddy.profile_screen_freature.data.model.AllPosts
 import com.pzbdownloaders.instabuddy.profile_screen_freature.data.model.AllReels
+import com.pzbdownloaders.instabuddy.profile_screen_freature.data.model.AllReelsRawData
+import com.pzbdownloaders.instabuddy.profile_screen_freature.data.model.RootAllReels
 import com.pzbdownloaders.instabuddy.profile_screen_freature.data.repo.AllReelsRepo
 import javax.inject.Inject
 
 class AllReelsUseCase @Inject constructor(private val allReelsRepo: AllReelsRepo) {
 
     var responseNumber = 0
-    suspend fun getAllReels(url: String): Triple<AllReels?, String?, String> {
-        val result = allReelsRepo.getAllReels(url)
+    suspend fun getAllReels(allReelsRawData: AllReelsRawData): Triple<RootAllReels?, String?, String> {
+        val result = allReelsRepo.getAllReels(allReelsRawData)
         return when (result) {
             is GetSearchResults.Success -> {
                 responseNumber += 1

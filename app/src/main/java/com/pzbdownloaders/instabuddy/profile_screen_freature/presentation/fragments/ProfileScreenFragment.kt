@@ -23,6 +23,7 @@ import com.pzbdownloaders.instabuddy.databinding.FragmentProfileScreenBinding
 import com.pzbdownloaders.instabuddy.profile_screen_freature.data.model.AllPosts
 import com.pzbdownloaders.instabuddy.profile_screen_freature.data.model.Data
 import com.pzbdownloaders.instabuddy.profile_screen_freature.data.model.Edge
+import com.pzbdownloaders.instabuddy.profile_screen_freature.data.model.ItemAllPosts
 import com.pzbdownloaders.instabuddy.profile_screen_freature.presentation.util.ProfileAdapter
 import com.pzbdownloaders.instabuddy.profile_screen_freature.presentation.util.ProfileViewModel
 import com.pzbdownloaders.instabuddy.profile_screen_freature.presentation.util.ProfileViewPagerAdapter
@@ -32,7 +33,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ProfileScreenFragment : Fragment() {
     lateinit var binding: FragmentProfileScreenBinding
     lateinit var viewModel: ProfileViewModel
-    var listOfPhotos: ArrayList<Edge>? = ArrayList()
+    var listOfPhotos: ArrayList<ItemAllPosts>? = ArrayList()
     lateinit var adapter: ProfileAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,6 +59,7 @@ class ProfileScreenFragment : Fragment() {
         val args: ProfileScreenFragmentArgs by navArgs()
         var username = args.username
         var profilePictureUrl = args.profileUrl
+        var id = args.id
         var bundle = Bundle()
         bundle.putString("username", username)
         var postScreen = PostsScreen()
@@ -66,12 +68,13 @@ class ProfileScreenFragment : Fragment() {
         (requireActivity() as AppCompatActivity).supportActionBar?.title = username
 
         Glide.with(requireActivity()).load(profilePictureUrl).circleCrop().into(binding.profileDp)
-       // binding.profilerUsername.text = username
+        // binding.profilerUsername.text = username
 
         var profileViewPagerAdapter = ProfileViewPagerAdapter(requireActivity())
         profileViewPagerAdapter.username = username
+        profileViewPagerAdapter.id = id
         binding.profileViewPager.adapter = profileViewPagerAdapter
-      //  binding.profileViewPager.isSaveEnabled = false
+        //  binding.profileViewPager.isSaveEnabled = false
 
         TabLayoutMediator(binding.profileTabLayout, binding.profileViewPager) { tab, position ->
             if (position == 0)

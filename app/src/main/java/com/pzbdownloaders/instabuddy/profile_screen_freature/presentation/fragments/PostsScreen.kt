@@ -13,22 +13,28 @@ import androidx.navigation.NavArgument
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.pzbdownloaders.instabuddy.R
 import com.pzbdownloaders.instabuddy.databinding.FragmentPostsScreenBinding
+import com.pzbdownloaders.instabuddy.profile_screen_freature.data.model.AllPostsRawData
 import com.pzbdownloaders.instabuddy.profile_screen_freature.data.model.Edge
+import com.pzbdownloaders.instabuddy.profile_screen_freature.data.model.ItemAllPosts
 import com.pzbdownloaders.instabuddy.profile_screen_freature.domain.util.ResponseNumbers
 import com.pzbdownloaders.instabuddy.profile_screen_freature.presentation.util.ProfileAdapter
 import com.pzbdownloaders.instabuddy.profile_screen_freature.presentation.util.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
 class PostsScreen : Fragment() {
     lateinit var binding: FragmentPostsScreenBinding
     lateinit var viewModel: ProfileViewModel
     lateinit var adapter: ProfileAdapter
-    var listOfPhotos: ArrayList<Edge>? = ArrayList()
-    var endCursor: String? = null
+    var listOfPhotos: ArrayList<ItemAllPosts>? = ArrayList()
+    var endCursor: String = ""
     private var username: String? = null
+    var id: Long? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -57,33 +63,32 @@ class PostsScreen : Fragment() {
 
         var arguments = arguments
         username = arguments?.getString("username")
+        id = arguments?.getString("id")?.toLong()
         var check = true
         var checkNextPost = true
-        var someCheck = false
-        Log.i("username123", username.toString())
+        var checkOfFailureOfNextPost = true
+        Log.i("username123", id.toString())
 
+        var allPostsRawData = AllPostsRawData(
+            id = id!!,
+            count = 12
+        )
 
-
-        viewModel.getPosts("https://apiprofi.com/api/posts_username?user=$username")
+        // viewModel.getPosts("https://apiprofi.com/api/posts_username?user=$username")
+        viewModel.getPosts(allPostsRawData)
 
         binding.profileNextButton.text = "Next posts available"
         adapter = ProfileAdapter(listOfPhotos, requireContext(), findNavController())
         binding.profileRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.profileRecyclerView.adapter = adapter
-        binding.profileShimmer1.startShimmerAnimation()
-        binding.profileShimmer2.startShimmerAnimation()
-        binding.profileShimmer3.startShimmerAnimation()
-        binding.profileShimmer4.startShimmerAnimation()
+        startAnimation()
 
         binding.profileNextButton.startAnimation()
 
         viewModel.getPosts.observe(requireActivity()) {
 
             Log.i("data123", "changed")
-            binding.profileShimmer1.visibility = View.INVISIBLE
-            binding.profileShimmer2.visibility = View.INVISIBLE
-            binding.profileShimmer3.visibility = View.INVISIBLE
-            binding.profileShimmer4.visibility = View.INVISIBLE
+            invisibleShimmerEffect()
 
             binding.profileRecyclerView.visibility = View.VISIBLE
             //   binding.controlButtonsRoot.visibility = View.VISIBLE
@@ -91,9 +96,15 @@ class PostsScreen : Fragment() {
             //  binding.profilePreviousButton.visibility = View.VISIBLE
 
             listOfPhotos =
-                it?.data?.user?.edgeOwnerToTimelineMedia?.edges?.toCollection(ArrayList())
-            Log.i("posts123", it?.data?.user?.edgeOwnerToTimelineMedia?.edges?.size.toString())
-            Log.i("check123", check.toString())
+                it?.response?.body?.items?.toCollection(ArrayList())
+            /*  Log.i("posts123", it?.data?.user?.edgeOwnerToTimelineMedia?.edges?.size.toString())
+              Log.i("check123", check.toString())
+              Log.i("check123456", checkOfFailureOfNextPost.toString())*/
+            if (viewModel.getPosts.value?.response?.body?.nextMaxId != null) {
+                endCursor =
+                    viewModel.getPosts.value?.response?.body?.nextMaxId
+                        ?: "Nothing"
+            }
             if (check) {
                 adapter.update(listOfPhotos)
                 Log.i("burhan123", "burhan")
@@ -105,11 +116,17 @@ class PostsScreen : Fragment() {
 
 
             if (checkNextPost && it != "Failed to connect" && it != "Failed to connect next") {
-                endCursor =
-                    viewModel.getPosts.value?.data?.user?.edgeOwnerToTimelineMedia?.pageInfo?.endCursor
-                viewModel.getPosts("https://apiprofi.com/api/posts_username?user=$username&end_cursor=$endCursor")
-                check  = false
-                Log.i("endcursor123", "endCursor.toString()")
+                var endCursor =
+                    viewModel.getPosts.value?.response?.body?.nextMaxId
+                var allPostsRawData1 = AllPostsRawData(
+                    id = id!!,
+                    count = 48,
+                    max_id = endCursor
+                )
+                viewModel.getPosts(allPostsRawData1)
+                check = false
+                checkOfFailureOfNextPost = true
+                Log.i("endcursor123", endCursor.toString())
             }
             checkNextPost = false
             Log.i("connect123", it.toString())
@@ -125,34 +142,34 @@ class PostsScreen : Fragment() {
                 Log.i("failed456", "failed456")
             }
             if (it == "Failed to connect next" && viewModel.getPostsAddedResponse.value?.toInt() != 0) {
+                checkOfFailureOfNextPost = false
                 binding.profileNextButton.revertAnimation()
                 binding.profileNextButton.text = "Failed loading next posts. Click to try again"
                 Log.i("failed123", "failed123")
+
             }
         }
 
         binding.retryButtonPosts.setOnClickListener {
             check = true
             checkNextPost = true
-            if (viewModel.getPostsResponse.value == "Failed to connect") {
-                viewModel.getPosts("https://apiprofi.com/api/posts_username?user=$username")
-            } else if (viewModel.getPostsResponse.value == "Failed to connect next") {
-                var endCursor =
-                    viewModel.getPosts.value?.data?.user?.edgeOwnerToTimelineMedia?.pageInfo?.endCursor
-                viewModel.getPosts("https://apiprofi.com/api/posts_username?user=$username&end_cursor=$endCursor")
 
+            if (ResponseNumbers.loadingFailed) {
+                viewModel.getPosts(allPostsRawData)
+                Log.i("endcursor789", endCursor.toString())
+
+            } else if (ResponseNumbers.loadingFailedNextPost) {
+                val allPostsRawData2 = AllPostsRawData(
+                    id!!, 48, endCursor
+                )
+                viewModel.getPosts(allPostsRawData2)
+                Log.i("endcursor789", endCursor.toString())
             }
-            binding.profileShimmer1.visibility = View.VISIBLE
-            binding.profileShimmer2.visibility = View.VISIBLE
-            binding.profileShimmer3.visibility = View.VISIBLE
-            binding.profileShimmer4.visibility = View.VISIBLE
+            visibleShimmerEffect()
             binding.failedToConnectServerPostTv.visibility = View.INVISIBLE
             binding.retryButtonPosts.visibility = View.INVISIBLE
 
-            binding.profileShimmer1.startShimmerAnimation()
-            binding.profileShimmer2.startShimmerAnimation()
-            binding.profileShimmer3.startShimmerAnimation()
-            binding.profileShimmer4.startShimmerAnimation()
+            startAnimation()
         }
 
         viewModel.getPostsAddedResponse.observe(requireActivity()) {
@@ -177,26 +194,33 @@ class PostsScreen : Fragment() {
         //  if (viewModel.getPostsAddedResponse.value == "2") {
         binding.profileNextButton.setOnClickListener {
             binding.profileNextButton.startAnimation()
+            binding.postScrollView.smoothScrollTo(0, binding.profileRecyclerView.top)
+            (binding.profileRecyclerView.layoutManager as LinearLayoutManager).smoothScrollToPosition(
+                binding.profileRecyclerView,
+                null,
+                0
+            )
             if (viewModel.getPostsResponse.value == "Failed to connect next") {
                 if (binding.profileRecyclerView.visibility == View.VISIBLE)
                     binding.profileRecyclerView.visibility = View.INVISIBLE
                 if (binding.profileNextButton.visibility == View.VISIBLE)
                     binding.profileNextButton.visibility = View.INVISIBLE
 
-                binding.profileShimmer1.visibility = View.VISIBLE
-                binding.profileShimmer2.visibility = View.VISIBLE
-                binding.profileShimmer3.visibility = View.VISIBLE
-                binding.profileShimmer4.visibility = View.VISIBLE
+
                 binding.failedToConnectServerPostTv.visibility = View.INVISIBLE
                 binding.retryButtonPosts.visibility = View.INVISIBLE
 
-                binding.profileShimmer1.startShimmerAnimation()
-                binding.profileShimmer2.startShimmerAnimation()
-                binding.profileShimmer3.startShimmerAnimation()
-                binding.profileShimmer4.startShimmerAnimation()
+                visibleShimmerEffect()
+                startAnimation()
 
                 //      var endCursor = viewModel.getPosts.value?.data?.user?.edgeOwnerToTimelineMedia?.pageInfo?.endCursor
-                viewModel.getPosts("https://apiprofi.com/api/posts_username?user=$username&end_cursor=$endCursor")
+                //    endCursor =
+                //     viewModel.getPosts.value?.data?.user?.edgeOwnerToTimelineMedia?.pageInfo?.endCursor
+                Log.i("endcursor1111", endCursor.toString())
+
+                val allPostsRawData3 = AllPostsRawData(id!!, 48, endCursor)
+
+                viewModel.getPosts(allPostsRawData3)
                 checkNextPost = true
                 check = true
                 Log.i("nextpost123", viewModel.getPosts.value.toString())
@@ -204,7 +228,7 @@ class PostsScreen : Fragment() {
                 ResponseNumbers.responseNumberPosts = 0
             } else {
                 adapter.update(
-                    viewModel.getPosts.value?.data?.user?.edgeOwnerToTimelineMedia?.edges?.toCollection(
+                    viewModel.getPosts.value?.response?.body?.items?.toCollection(
                         ArrayList()
                     )
                 )
@@ -218,6 +242,27 @@ class PostsScreen : Fragment() {
             Log.i("number123", viewModel.getPostsAddedResponse.value.toString())
         }
 
+    }
+
+    private fun startAnimation() {
+        binding.profileShimmer1.startShimmerAnimation()
+        binding.profileShimmer2.startShimmerAnimation()
+        binding.profileShimmer3.startShimmerAnimation()
+        binding.profileShimmer4.startShimmerAnimation()
+    }
+
+    private fun visibleShimmerEffect() {
+        binding.profileShimmer1.visibility = View.VISIBLE
+        binding.profileShimmer2.visibility = View.VISIBLE
+        binding.profileShimmer3.visibility = View.VISIBLE
+        binding.profileShimmer4.visibility = View.VISIBLE
+    }
+
+    private fun invisibleShimmerEffect() {
+        binding.profileShimmer1.visibility = View.INVISIBLE
+        binding.profileShimmer2.visibility = View.INVISIBLE
+        binding.profileShimmer3.visibility = View.INVISIBLE
+        binding.profileShimmer4.visibility = View.INVISIBLE
     }
 
 }

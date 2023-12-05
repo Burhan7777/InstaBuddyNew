@@ -135,7 +135,8 @@
             android:textColor="@color/text_color_dark"
             android:textSize="15sp"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:flow_horizontalBias="0.1"
+            android:layout_marginTop="200dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

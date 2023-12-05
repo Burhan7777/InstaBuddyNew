@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.pzbdownloaders.instabuddy.common.presentation.MainActivityViewModel
 import com.pzbdownloaders.instabuddy.databinding.FragmentBatchDownloadBinding
 import com.pzbdownloaders.instabuddy.main_screen.data.model.SearchHistory
+import com.pzbdownloaders.instabuddy.main_screen.data.model.SearchRawData
+import com.pzbdownloaders.instabuddy.main_screen.data.model.UserSearch
 import com.pzbdownloaders.instabuddy.main_screen.data.model.Users
 import com.pzbdownloaders.instabuddy.main_screen.presentation.util.SearchAdapter
 import com.pzbdownloaders.instabuddy.profile_screen_freature.domain.util.ResponseNumbers
@@ -27,7 +29,7 @@ import com.pzbdownloaders.instabuddy.profile_screen_freature.domain.util.Respons
 class BatchDownloadFragment : Fragment() {
     lateinit var binding: FragmentBatchDownloadBinding
     lateinit var viewModel: MainActivityViewModel
-    var listOfUsers: ArrayList<Users>? = ArrayList()
+    var listOfUsers: ArrayList<UserSearch>? = ArrayList()
     lateinit var adapter: SearchAdapter
     lateinit var navController: NavController
     lateinit var searchHistoryAdapter: SearchHistoryAdapter
@@ -53,7 +55,9 @@ class BatchDownloadFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.searchEdittext.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                viewModel.getSearchResults("https://apiprofi.com/api/search?user=${binding.searchEdittext.text.toString()}")
+                var searchRawData = SearchRawData(query =binding.searchEdittext.text.toString() )
+             //   viewModel.getSearchResults("https://apiprofi.com/api/search?user=${binding.searchEdittext.text.toString()}")
+                 viewModel.getSearchResults(searchRawData)
                 binding.shimmerLayout.visibility = View.VISIBLE
                 binding.shimmerLayout1.visibility = View.VISIBLE
                 binding.shimmerLayout2.visibility = View.VISIBLE
@@ -84,7 +88,7 @@ class BatchDownloadFragment : Fragment() {
             true
         }
         viewModel.searchResults.observe(requireActivity()) {
-            listOfUsers = it?.users?.toCollection(ArrayList())
+            listOfUsers = it?.response?.body?.users?.toCollection(ArrayList())
             adapter.updateListOfUsers(listOfUsers)
             binding.shimmerLayout.visibility = View.INVISIBLE
             binding.shimmerLayout1.visibility = View.INVISIBLE
@@ -105,7 +109,9 @@ class BatchDownloadFragment : Fragment() {
         }
 
         binding.retryButton.setOnClickListener {
-            viewModel.getSearchResults("https://apiprofi.com/api/search?user=${binding.searchEdittext.text.toString()}")
+         //   viewModel.getSearchResults("https://apiprofi.com/api/search?user=${binding.searchEdittext.text.toString()}")
+            var searchRawData = SearchRawData(query =binding.searchEdittext.text.toString() )
+            viewModel.getSearchResults(searchRawData)
             binding.failedToConnectServerTv.visibility = View.INVISIBLE
             binding.retryButton.visibility = View.INVISIBLE
             binding.shimmerLayout.visibility = View.VISIBLE
@@ -152,7 +158,7 @@ class BatchDownloadFragment : Fragment() {
 
         viewModel.searchUserName.observe(requireActivity()) {
             Log.i("login", "login")
-            viewModel.getSearchResults("https://apiprofi.com/api/search?user=${viewModel.searchUserName.value}")
+         //  viewModel.getSearchResults("https://apiprofi.com/api/search?user=${viewModel.searchUserName.value}")
             binding.searchEdittext.setText(viewModel.searchUserName.value)
             binding.searchHistory.visibility = View.INVISIBLE
             //  viewModel.sendSearchRequest.value = false

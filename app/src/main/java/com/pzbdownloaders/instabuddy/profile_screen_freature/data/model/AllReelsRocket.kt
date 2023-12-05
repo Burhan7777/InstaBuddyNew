@@ -1,19 +1,10 @@
-package com.pzbdownloaders.instabuddy.main_screen.data.model
+package com.pzbdownloaders.instabuddy.profile_screen_freature.data.model
 
 import com.google.gson.annotations.SerializedName
-
-// ILLUSION API
-
-/* 
-data class Reels(
-    val video_url: String
-)
-//ILLUSION API
-//
-*/
+import com.pzbdownloaders.instabuddy.main_screen.data.model.BodyReel
 
 
-data class RootReel(
+data class RootAllReels(
     val status: String,
     val response: ResponseReel,
 )
@@ -23,21 +14,21 @@ data class ResponseReel(
     val statusCode: Long,
     @SerializedName("content_type")
     val contentType: String,
-    val body: BodyReel,
+    val body: BodyAllReel,
 )
 
-data class BodyReel(
-    val items: List<ItemReel>,
-    @SerializedName("num_results")
-    val numResults: Long,
-    @SerializedName("more_available")
-    val moreAvailable: Boolean,
-    @SerializedName("auto_load_more_enabled")
-    val autoLoadMoreEnabled: Boolean,
+data class BodyAllReel(
+    val items: List<ItemAllReel>,
+    @SerializedName("paging_info")
+    val pagingInfo: PagingInfoAllReels,
     val status: String,
 )
 
-data class ItemReel(
+data class ItemAllReel(
+    val media: MediaAllReels,
+)
+
+data class MediaAllReels(
     @SerializedName("taken_at")
     val takenAt: Long,
     val pk: String,
@@ -74,14 +65,23 @@ data class ItemReel(
     val commercialityStatus: String,
     @SerializedName("explore_hide_comments")
     val exploreHideComments: Boolean,
+    @SerializedName("view_state_item_type")
+    val viewStateItemType: Long,
+    @SerializedName("logging_info_token")
+    val loggingInfoToken: String,
+    @SerializedName("clips_delivery_parameters")
+    val clipsDeliveryParameters: Map<String, Any>,
+    @SerializedName("mezql_token")
+    val mezqlToken: String,
+    val usertags: UsertagsAllReels?,
+    @SerializedName("photo_of_you")
+    val photoOfYou: Boolean?,
     @SerializedName("shop_routing_user_id")
     val shopRoutingUserId: Any?,
     @SerializedName("can_see_insights_as_brand")
     val canSeeInsightsAsBrand: Boolean,
     @SerializedName("is_organic_product_tagging_eligible")
     val isOrganicProductTaggingEligible: Boolean,
-    @SerializedName("fb_like_count")
-    val fbLikeCount: Long,
     @SerializedName("has_liked")
     val hasLiked: Boolean,
     @SerializedName("has_privately_liked")
@@ -92,28 +92,30 @@ data class ItemReel(
     val facepileTopLikers: List<Any?>,
     @SerializedName("top_likers")
     val topLikers: List<Any?>,
+    @SerializedName("video_subtitles_confidence")
+    val videoSubtitlesConfidence: Double?,
     @SerializedName("media_type")
     val mediaType: Long,
     val code: String,
     @SerializedName("can_viewer_reshare")
     val canViewerReshare: Boolean,
-    val caption: CaptionReel,
+    val caption: CaptionAllReels,
     @SerializedName("clips_tab_pinned_user_ids")
     val clipsTabPinnedUserIds: List<Any?>,
     @SerializedName("comment_inform_treatment")
-    val commentInformTreatment: CommentInformTreatmentReel,
+    val commentInformTreatment: CommentInformTreatmentAllReels,
     @SerializedName("sharing_friction_info")
-    val sharingFrictionInfo: SharingFrictionInfoReel,
+    val sharingFrictionInfo: SharingFrictionInfoAllReels,
     @SerializedName("play_count")
     val playCount: Long,
-    @SerializedName("fb_play_count")
-    val fbPlayCount: Long,
     @SerializedName("media_appreciation_settings")
-    val mediaAppreciationSettings: MediaAppreciationSettings,
+    val mediaAppreciationSettings: MediaAppreciationSettingsAllReels,
     @SerializedName("original_media_has_visual_reply_media")
     val originalMediaHasVisualReplyMedia: Boolean,
     @SerializedName("fb_user_tags")
-    val fbUserTags: FbUserTagsReel,
+    val fbUserTags: FbUserTagsAllReels,
+    @SerializedName("coauthor_producers")
+    val coauthorProducers: List<CoauthorProducerAllReels>?,
     @SerializedName("invited_coauthor_producers")
     val invitedCoauthorProducers: List<Any?>,
     @SerializedName("can_viewer_save")
@@ -127,14 +129,14 @@ data class ItemReel(
     @SerializedName("is_comments_gif_composer_enabled")
     val isCommentsGifComposerEnabled: Boolean,
     @SerializedName("highlights_info")
-    val highlightsInfo: HighlightsInfoReel,
+    val highlightsInfo: HighlightsInfoAllReels,
     @SerializedName("media_cropping_info")
-    val mediaCroppingInfo: MediaCroppingInfo,
+    val mediaCroppingInfo: MediaCroppingInfoAllReels,
     @SerializedName("product_suggestions")
     val productSuggestions: List<Any?>,
-    val user: User2Reel,
+    val user: User3AllReels,
     @SerializedName("image_versions2")
-    val imageVersions2: ImageVersions2Reel,
+    val imageVersions2: ImageVersions2AllReels,
     @SerializedName("original_width")
     val originalWidth: Long,
     @SerializedName("original_height")
@@ -149,44 +151,48 @@ data class ItemReel(
     val isPaidPartnership: Boolean,
     @SerializedName("music_metadata")
     val musicMetadata: Any?,
+    @SerializedName("social_context")
+    val socialContext: List<Any?>,
     @SerializedName("organic_tracking_token")
     val organicTrackingToken: String,
     @SerializedName("is_third_party_downloads_eligible")
     val isThirdPartyDownloadsEligible: Boolean,
+    @SerializedName("commerce_integrity_review_decision")
+    val commerceIntegrityReviewDecision: String,
     @SerializedName("ig_media_sharing_disabled")
     val igMediaSharingDisabled: Boolean,
     @SerializedName("open_carousel_submission_state")
     val openCarouselSubmissionState: String,
     @SerializedName("is_open_to_public_submission")
     val isOpenToPublicSubmission: Boolean,
+    @SerializedName("comment_likes_enabled")
+    val commentLikesEnabled: Boolean?,
     @SerializedName("comment_threading_enabled")
     val commentThreadingEnabled: Boolean,
     @SerializedName("max_num_visible_preview_comments")
     val maxNumVisiblePreviewComments: Long,
     @SerializedName("has_more_comments")
     val hasMoreComments: Boolean,
+    @SerializedName("next_max_id")
+    val nextMaxId: String?,
     @SerializedName("preview_comments")
-    val previewComments: List<Any?>,
-    val comments: List<Any?>,
+    val previewComments: List<PreviewCommentAllReels>,
+    val comments: List<CommentAllReels>,
     @SerializedName("comment_count")
     val commentCount: Long,
     @SerializedName("can_view_more_preview_comments")
     val canViewMorePreviewComments: Boolean,
     @SerializedName("hide_view_all_comment_entrypoint")
     val hideViewAllCommentEntrypoint: Boolean,
-    @SerializedName("inline_composer_display_condition")
-    val inlineComposerDisplayCondition: String,
     @SerializedName("has_delayed_metadata")
     val hasDelayedMetadata: Boolean,
     @SerializedName("is_auto_created")
     val isAutoCreated: Boolean,
-    @SerializedName("is_quiet_post")
-    val isQuietPost: Boolean,
     @SerializedName("is_cutout_sticker_allowed")
     val isCutoutStickerAllowed: Boolean,
     @SerializedName("enable_waist")
     val enableWaist: Boolean,
-    val owner: OwnerReel,
+    val owner: OwnerAllReels,
     @SerializedName("is_dash_eligible")
     val isDashEligible: Long,
     @SerializedName("video_dash_manifest")
@@ -196,20 +202,81 @@ data class ItemReel(
     @SerializedName("number_of_qualities")
     val numberOfQualities: Long,
     @SerializedName("video_versions")
-    val videoVersions: List<VideoVersion>,
+    val videoVersions: List<VideoVersionAllReels>,
     @SerializedName("video_duration")
     val videoDuration: Double,
     @SerializedName("has_audio")
     val hasAudio: Boolean,
     @SerializedName("clips_metadata")
-    val clipsMetadata: ClipsMetadata,
+    val clipsMetadata: ClipsMetadataAllReels,
+    @SerializedName("sponsor_tags")
+    val sponsorTags: List<SponsorTagAllReels>?,
+    @SerializedName("fb_like_count")
+    val fbLikeCount: Long?,
+    @SerializedName("fb_play_count")
+    val fbPlayCount: Long?,
 )
 
-data class CaptionReel(
+data class UsertagsAllReels(
+    @SerializedName("in")
+    val in_field: List<InAllReels>,
+)
+
+data class InAllReels(
+    val user: UserAllReels,
+    val position: List<Double>,
+    @SerializedName("start_time_in_video_in_sec")
+    val startTimeInVideoInSec: Any?,
+    @SerializedName("duration_in_video_in_sec")
+    val durationInVideoInSec: Any?,
+)
+
+data class UserAllReels(
+    val pk: String,
+    @SerializedName("pk_id")
+    val pkId: String,
+    @SerializedName("full_name")
+    val fullName: String,
+    @SerializedName("is_private")
+    val isPrivate: Boolean,
+    @SerializedName("strong_id__")
+    val strongId: String,
+    val username: String,
+    @SerializedName("is_verified")
+    val isVerified: Boolean,
+    @SerializedName("profile_pic_id")
+    val profilePicId: String?,
+    @SerializedName("profile_pic_url")
+    val profilePicUrl: String,
+    @SerializedName("friendship_status")
+    val friendshipStatus: FriendshipStatusAllReels,
+)
+
+data class FriendshipStatusAllReels(
+    val following: Boolean,
+    @SerializedName("followed_by")
+    val followedBy: Boolean,
+    val blocking: Boolean,
+    val muting: Boolean,
+    @SerializedName("is_private")
+    val isPrivate: Boolean,
+    @SerializedName("incoming_request")
+    val incomingRequest: Boolean,
+    @SerializedName("outgoing_request")
+    val outgoingRequest: Boolean,
+    @SerializedName("is_bestie")
+    val isBestie: Boolean,
+    @SerializedName("is_restricted")
+    val isRestricted: Boolean,
+    @SerializedName("is_feed_favorite")
+    val isFeedFavorite: Boolean,
+)
+
+data class CaptionAllReels(
     val pk: String,
     @SerializedName("user_id")
     val userId: String,
-    val user: UserReel,
+    val user: User2AllReels,
     val type: Long,
     val text: String,
     @SerializedName("did_report_as_spam")
@@ -233,9 +300,11 @@ data class CaptionReel(
     val privateReplyStatus: Long,
     @SerializedName("media_id")
     val mediaId: String,
+    @SerializedName("has_translation")
+    val hasTranslation: Boolean?,
 )
 
-data class UserReel(
+data class User2AllReels(
     @SerializedName("fbid_v2")
     val fbidV2: String,
     @SerializedName("feed_post_reshare_disabled")
@@ -259,21 +328,19 @@ data class UserReel(
     @SerializedName("account_badges")
     val accountBadges: List<Any?>,
     @SerializedName("fan_club_info")
-    val fanClubInfo: FanClubInfoReel,
+    val fanClubInfo: FanClubInfoAllReels,
     @SerializedName("friendship_status")
-    val friendshipStatus: FriendshipStatusReel,
+    val friendshipStatus: FriendshipStatus2AllReels,
     @SerializedName("has_anonymous_profile_picture")
     val hasAnonymousProfilePicture: Boolean,
     @SerializedName("hd_profile_pic_url_info")
-    val hdProfilePicUrlInfo: HdProfilePicUrlInfoReel,
+    val hdProfilePicUrlInfo: HdProfilePicUrlInfoAllReels,
     @SerializedName("hd_profile_pic_versions")
-    val hdProfilePicVersions: List<HdProfilePicVersionReel>,
+    val hdProfilePicVersions: List<HdProfilePicVersionAllReels>,
     @SerializedName("is_favorite")
     val isFavorite: Boolean,
     @SerializedName("is_verified")
     val isVerified: Boolean,
-    @SerializedName("latest_reel_media")
-    val latestReelMedia: Long,
     @SerializedName("profile_pic_id")
     val profilePicId: String,
     @SerializedName("profile_pic_url")
@@ -281,9 +348,11 @@ data class UserReel(
     @SerializedName("transparency_product_enabled")
     val transparencyProductEnabled: Boolean,
     val username: String,
+    @SerializedName("reshare_xpost_deny_reasons_for_user")
+    val reshareXpostDenyReasonsForUser: List<String>?,
 )
 
-data class FanClubInfoReel(
+data class FanClubInfoAllReels(
     @SerializedName("fan_club_id")
     val fanClubId: Any?,
     @SerializedName("fan_club_name")
@@ -304,7 +373,7 @@ data class FanClubInfoReel(
     val hasEnoughSubscribersForSsc: Any?,
 )
 
-data class FriendshipStatusReel(
+data class FriendshipStatus2AllReels(
     val following: Boolean,
     @SerializedName("is_bestie")
     val isBestie: Boolean,
@@ -314,19 +383,19 @@ data class FriendshipStatusReel(
     val isFeedFavorite: Boolean,
 )
 
-data class HdProfilePicUrlInfoReel(
+data class HdProfilePicUrlInfoAllReels(
     val url: String,
     val width: Long,
     val height: Long,
 )
 
-data class HdProfilePicVersionReel(
+data class HdProfilePicVersionAllReels(
     val width: Long,
     val height: Long,
     val url: String,
 )
 
-data class CommentInformTreatmentReel(
+data class CommentInformTreatmentAllReels(
     @SerializedName("should_have_inform_treatment")
     val shouldHaveInformTreatment: Boolean,
     val text: String,
@@ -335,7 +404,7 @@ data class CommentInformTreatmentReel(
     val actionType: Any?,
 )
 
-data class SharingFrictionInfoReel(
+data class SharingFrictionInfoAllReels(
     @SerializedName("should_have_sharing_friction")
     val shouldHaveSharingFriction: Boolean,
     @SerializedName("bloks_app_url")
@@ -344,29 +413,48 @@ data class SharingFrictionInfoReel(
     val sharingFrictionPayload: Any?,
 )
 
-data class MediaAppreciationSettings(
+data class MediaAppreciationSettingsAllReels(
     @SerializedName("media_gifting_state")
     val mediaGiftingState: String,
     @SerializedName("gift_count_visibility")
     val giftCountVisibility: String,
 )
 
-data class FbUserTagsReel(
+data class FbUserTagsAllReels(
     @SerializedName("in")
     val in_field: List<Any?>,
 )
 
-data class HighlightsInfoReel(
+data class CoauthorProducerAllReels(
+    val pk: String,
+    @SerializedName("pk_id")
+    val pkId: String,
+    @SerializedName("full_name")
+    val fullName: String,
+    @SerializedName("is_private")
+    val isPrivate: Boolean,
+    @SerializedName("strong_id__")
+    val strongId: String,
+    val username: String,
+    @SerializedName("is_verified")
+    val isVerified: Boolean,
+    @SerializedName("profile_pic_id")
+    val profilePicId: String?,
+    @SerializedName("profile_pic_url")
+    val profilePicUrl: String,
+)
+
+data class HighlightsInfoAllReels(
     @SerializedName("added_to")
     val addedTo: List<Any?>,
 )
 
-data class MediaCroppingInfo(
+data class MediaCroppingInfoAllReels(
     @SerializedName("square_crop")
-    val squareCrop: SquareCrop,
+    val squareCrop: SquareCropAllReels,
 )
 
-data class SquareCrop(
+data class SquareCropAllReels(
     @SerializedName("crop_left")
     val cropLeft: Double,
     @SerializedName("crop_right")
@@ -377,7 +465,7 @@ data class SquareCrop(
     val cropBottom: Double,
 )
 
-data class User2Reel(
+data class User3AllReels(
     @SerializedName("fbid_v2")
     val fbidV2: String,
     @SerializedName("feed_post_reshare_disabled")
@@ -401,21 +489,19 @@ data class User2Reel(
     @SerializedName("account_badges")
     val accountBadges: List<Any?>,
     @SerializedName("fan_club_info")
-    val fanClubInfo: FanClubInfo2Reel,
+    val fanClubInfo: FanClubInfo2AllReels,
     @SerializedName("friendship_status")
-    val friendshipStatus: FriendshipStatus2Reel,
+    val friendshipStatus: FriendshipStatus3AllReels,
     @SerializedName("has_anonymous_profile_picture")
     val hasAnonymousProfilePicture: Boolean,
     @SerializedName("hd_profile_pic_url_info")
-    val hdProfilePicUrlInfo: HdProfilePicUrlInfo2Reel,
+    val hdProfilePicUrlInfo: HdProfilePicUrlInfo2AllReels,
     @SerializedName("hd_profile_pic_versions")
-    val hdProfilePicVersions: List<HdProfilePicVersion2Reel>,
+    val hdProfilePicVersions: List<HdProfilePicVersion2AllReels>,
     @SerializedName("is_favorite")
     val isFavorite: Boolean,
     @SerializedName("is_verified")
     val isVerified: Boolean,
-    @SerializedName("latest_reel_media")
-    val latestReelMedia: Long,
     @SerializedName("profile_pic_id")
     val profilePicId: String,
     @SerializedName("profile_pic_url")
@@ -423,9 +509,11 @@ data class User2Reel(
     @SerializedName("transparency_product_enabled")
     val transparencyProductEnabled: Boolean,
     val username: String,
+    @SerializedName("reshare_xpost_deny_reasons_for_user")
+    val reshareXpostDenyReasonsForUser: List<String>?,
 )
 
-data class FanClubInfo2Reel(
+data class FanClubInfo2AllReels(
     @SerializedName("fan_club_id")
     val fanClubId: Any?,
     @SerializedName("fan_club_name")
@@ -446,7 +534,7 @@ data class FanClubInfo2Reel(
     val hasEnoughSubscribersForSsc: Any?,
 )
 
-data class FriendshipStatus2Reel(
+data class FriendshipStatus3AllReels(
     val following: Boolean,
     @SerializedName("is_bestie")
     val isBestie: Boolean,
@@ -456,60 +544,60 @@ data class FriendshipStatus2Reel(
     val isFeedFavorite: Boolean,
 )
 
-data class HdProfilePicUrlInfo2Reel(
+data class HdProfilePicUrlInfo2AllReels(
     val url: String,
     val width: Long,
     val height: Long,
 )
 
-data class HdProfilePicVersion2Reel(
+data class HdProfilePicVersion2AllReels(
     val width: Long,
     val height: Long,
     val url: String,
 )
 
-data class ImageVersions2Reel(
-    val candidates: List<CandidateReel>,
+data class ImageVersions2AllReels(
+    val candidates: List<CandidateAllReels>,
     @SerializedName("additional_candidates")
-    val additionalCandidates: AdditionalCandidates,
+    val additionalCandidates: AdditionalCandidatesAllReels,
     @SerializedName("smart_thumbnail_enabled")
     val smartThumbnailEnabled: Boolean,
     @SerializedName("scrubber_spritesheet_info_candidates")
-    val scrubberSpritesheetInfoCandidates: ScrubberSpritesheetInfoCandidates,
+    val scrubberSpritesheetInfoCandidates: ScrubberSpritesheetInfoCandidatesAllReels?,
 )
 
-data class CandidateReel(
+data class CandidateAllReels(
     val width: Long,
     val height: Long,
     val url: String,
 )
 
-data class AdditionalCandidates(
+data class AdditionalCandidatesAllReels(
     @SerializedName("igtv_first_frame")
-    val igtvFirstFrame: IgtvFirstFrame,
+    val igtvFirstFrame: IgtvFirstFrameAllReels,
     @SerializedName("first_frame")
-    val firstFrame: FirstFrame,
+    val firstFrame: FirstFrameAllReels,
     @SerializedName("smart_frame")
     val smartFrame: Any?,
 )
 
-data class IgtvFirstFrame(
+data class IgtvFirstFrameAllReels(
     val width: Long,
     val height: Long,
     val url: String,
 )
 
-data class FirstFrame(
+data class FirstFrameAllReels(
     val width: Long,
     val height: Long,
     val url: String,
 )
 
-data class ScrubberSpritesheetInfoCandidates(
-    val default: Default,
+data class ScrubberSpritesheetInfoCandidatesAllReels(
+    val default: DefaultAllReels,
 )
 
-data class Default(
+data class DefaultAllReels(
     @SerializedName("video_length")
     val videoLength: Double,
     @SerializedName("thumbnail_width")
@@ -536,7 +624,117 @@ data class Default(
     val fileSizeKb: Long,
 )
 
-data class OwnerReel(
+data class PreviewCommentAllReels(
+    val pk: String,
+    @SerializedName("user_id")
+    val userId: String,
+    val type: Long,
+    @SerializedName("did_report_as_spam")
+    val didReportAsSpam: Boolean,
+    @SerializedName("created_at")
+    val createdAt: Long,
+    @SerializedName("created_at_utc")
+    val createdAtUtc: Long,
+    @SerializedName("content_type")
+    val contentType: String,
+    val status: String,
+    @SerializedName("bit_flags")
+    val bitFlags: Long,
+    @SerializedName("share_enabled")
+    val shareEnabled: Boolean,
+    @SerializedName("is_ranked_comment")
+    val isRankedComment: Boolean,
+    @SerializedName("media_id")
+    val mediaId: String,
+    val user: User4AllReels,
+    val text: String,
+    @SerializedName("is_covered")
+    val isCovered: Boolean,
+    @SerializedName("has_translation")
+    val hasTranslation: Boolean?,
+    @SerializedName("parent_comment_id")
+    val parentCommentId: String?,
+    @SerializedName("replied_to_comment_id")
+    val repliedToCommentId: String?,
+)
+
+data class User4AllReels(
+    val pk: String,
+    @SerializedName("pk_id")
+    val pkId: String,
+    @SerializedName("full_name")
+    val fullName: String,
+    @SerializedName("is_private")
+    val isPrivate: Boolean,
+    @SerializedName("strong_id__")
+    val strongId: String,
+    @SerializedName("fbid_v2")
+    val fbidV2: String,
+    val username: String,
+    @SerializedName("is_verified")
+    val isVerified: Boolean,
+    @SerializedName("profile_pic_id")
+    val profilePicId: String?,
+    @SerializedName("profile_pic_url")
+    val profilePicUrl: String,
+)
+
+data class CommentAllReels(
+    val pk: String,
+    @SerializedName("user_id")
+    val userId: String,
+    val type: Long,
+    @SerializedName("did_report_as_spam")
+    val didReportAsSpam: Boolean,
+    @SerializedName("created_at")
+    val createdAt: Long,
+    @SerializedName("created_at_utc")
+    val createdAtUtc: Long,
+    @SerializedName("content_type")
+    val contentType: String,
+    val status: String,
+    @SerializedName("bit_flags")
+    val bitFlags: Long,
+    @SerializedName("share_enabled")
+    val shareEnabled: Boolean,
+    @SerializedName("is_ranked_comment")
+    val isRankedComment: Boolean,
+    @SerializedName("media_id")
+    val mediaId: String,
+    val user: User5AllReels,
+    val text: String,
+    @SerializedName("is_covered")
+    val isCovered: Boolean,
+    @SerializedName("has_translation")
+    val hasTranslation: Boolean?,
+    @SerializedName("parent_comment_id")
+    val parentCommentId: String?,
+    @SerializedName("replied_to_comment_id")
+    val repliedToCommentId: String?,
+)
+
+data class User5AllReels(
+    val pk: String,
+    @SerializedName("pk_id")
+    val pkId: String,
+    @SerializedName("full_name")
+    val fullName: String,
+    @SerializedName("is_private")
+    val isPrivate: Boolean,
+    @SerializedName("strong_id__")
+    val strongId: String,
+    @SerializedName("fbid_v2")
+    val fbidV2: String,
+    val username: String,
+    @SerializedName("is_verified")
+    val isVerified: Boolean,
+    @SerializedName("profile_pic_id")
+    val profilePicId: String?,
+    @SerializedName("profile_pic_url")
+    val profilePicUrl: String,
+)
+
+data class OwnerAllReels(
     @SerializedName("fbid_v2")
     val fbidV2: String,
     @SerializedName("feed_post_reshare_disabled")
@@ -560,21 +758,19 @@ data class OwnerReel(
     @SerializedName("account_badges")
     val accountBadges: List<Any?>,
     @SerializedName("fan_club_info")
-    val fanClubInfo: FanClubInfo3Reel,
+    val fanClubInfo: FanClubInfo3AllReels,
     @SerializedName("friendship_status")
-    val friendshipStatus: FriendshipStatus3Reel,
+    val friendshipStatus: FriendshipStatus4AllReels,
     @SerializedName("has_anonymous_profile_picture")
     val hasAnonymousProfilePicture: Boolean,
     @SerializedName("hd_profile_pic_url_info")
-    val hdProfilePicUrlInfo: HdProfilePicUrlInfo3Reel,
+    val hdProfilePicUrlInfo: HdProfilePicUrlInfo3AllReels,
     @SerializedName("hd_profile_pic_versions")
-    val hdProfilePicVersions: List<HdProfilePicVersion3Reel>,
+    val hdProfilePicVersions: List<HdProfilePicVersion3AllReels>,
     @SerializedName("is_favorite")
     val isFavorite: Boolean,
     @SerializedName("is_verified")
     val isVerified: Boolean,
-    @SerializedName("latest_reel_media")
-    val latestReelMedia: Long,
     @SerializedName("profile_pic_id")
     val profilePicId: String,
     @SerializedName("profile_pic_url")
@@ -582,9 +778,11 @@ data class OwnerReel(
     @SerializedName("transparency_product_enabled")
     val transparencyProductEnabled: Boolean,
     val username: String,
+    @SerializedName("reshare_xpost_deny_reasons_for_user")
+    val reshareXpostDenyReasonsForUser: List<String>?,
 )
 
-data class FanClubInfo3Reel(
+data class FanClubInfo3AllReels(
     @SerializedName("fan_club_id")
     val fanClubId: Any?,
     @SerializedName("fan_club_name")
@@ -605,7 +803,7 @@ data class FanClubInfo3Reel(
     val hasEnoughSubscribersForSsc: Any?,
 )
 
-data class FriendshipStatus3Reel(
+data class FriendshipStatus4AllReels(
     val following: Boolean,
     @SerializedName("is_bestie")
     val isBestie: Boolean,
@@ -615,19 +813,19 @@ data class FriendshipStatus3Reel(
     val isFeedFavorite: Boolean,
 )
 
-data class HdProfilePicUrlInfo3Reel(
+data class HdProfilePicUrlInfo3AllReels(
     val url: String,
     val width: Long,
     val height: Long,
 )
 
-data class HdProfilePicVersion3Reel(
+data class HdProfilePicVersion3AllReels(
     val width: Long,
     val height: Long,
     val url: String,
 )
 
-data class VideoVersion(
+data class VideoVersionAllReels(
     val type: Long,
     val width: Long,
     val height: Long,
@@ -635,11 +833,11 @@ data class VideoVersion(
     val id: String,
 )
 
-data class ClipsMetadata(
+data class ClipsMetadataAllReels(
     @SerializedName("music_info")
     val musicInfo: Any?,
     @SerializedName("original_sound_info")
-    val originalSoundInfo: OriginalSoundInfo,
+    val originalSoundInfo: OriginalSoundInfoAllReels,
     @SerializedName("audio_type")
     val audioType: String,
     @SerializedName("music_canonical_id")
@@ -647,7 +845,7 @@ data class ClipsMetadata(
     @SerializedName("featured_label")
     val featuredLabel: Any?,
     @SerializedName("mashup_info")
-    val mashupInfo: MashupInfo,
+    val mashupInfo: MashupInfoAllReels,
     @SerializedName("reusable_text_info")
     val reusableTextInfo: Any?,
     @SerializedName("reusable_text_attribute_string")
@@ -657,11 +855,11 @@ data class ClipsMetadata(
     @SerializedName("viewer_interaction_settings")
     val viewerInteractionSettings: Any?,
     @SerializedName("branded_content_tag_info")
-    val brandedContentTagInfo: BrandedContentTagInfo,
+    val brandedContentTagInfo: BrandedContentTagInfoAllReels,
     @SerializedName("shopping_info")
     val shoppingInfo: Any?,
     @SerializedName("additional_audio_info")
-    val additionalAudioInfo: AdditionalAudioInfo,
+    val additionalAudioInfo: AdditionalAudioInfoAllReels,
     @SerializedName("is_shared_to_fb")
     val isSharedToFb: Boolean,
     @SerializedName("breaking_content_info")
@@ -679,7 +877,7 @@ data class ClipsMetadata(
     @SerializedName("clips_creation_entry_point")
     val clipsCreationEntryPoint: String,
     @SerializedName("audio_ranking_info")
-    val audioRankingInfo: AudioRankingInfo,
+    val audioRankingInfo: AudioRankingInfoAllReels,
     @SerializedName("template_info")
     val templateInfo: Any?,
     @SerializedName("is_fan_club_promo_video")
@@ -687,9 +885,9 @@ data class ClipsMetadata(
     @SerializedName("disable_use_in_clips_client_cache")
     val disableUseInClipsClientCache: Boolean,
     @SerializedName("content_appreciation_info")
-    val contentAppreciationInfo: ContentAppreciationInfo,
+    val contentAppreciationInfo: ContentAppreciationInfoAllReels,
     @SerializedName("achievements_info")
-    val achievementsInfo: AchievementsInfo,
+    val achievementsInfo: AchievementsInfoAllReels,
     @SerializedName("show_achievements")
     val showAchievements: Boolean,
     @SerializedName("show_tips")
@@ -706,7 +904,7 @@ data class ClipsMetadata(
     val cutoutStickerInfo: Any?,
 )
 
-data class OriginalSoundInfo(
+data class OriginalSoundInfoAllReels(
     @SerializedName("audio_asset_id")
     val audioAssetId: String,
     @SerializedName("music_canonical_id")
@@ -718,7 +916,7 @@ data class OriginalSoundInfo(
     @SerializedName("dash_manifest")
     val dashManifest: String,
     @SerializedName("ig_artist")
-    val igArtist: IgArtist,
+    val igArtist: IgArtistAllReels,
     @SerializedName("should_mute_audio")
     val shouldMuteAudio: Boolean,
     @SerializedName("hide_remixing")
@@ -730,7 +928,7 @@ data class OriginalSoundInfo(
     @SerializedName("original_audio_title")
     val originalAudioTitle: String,
     @SerializedName("consumption_info")
-    val consumptionInfo: ConsumptionInfo,
+    val consumptionInfo: ConsumptionInfoAllReels,
     @SerializedName("can_remix_be_shared_to_fb")
     val canRemixBeSharedToFb: Boolean,
     @SerializedName("can_remix_be_shared_to_fb_expansion")
@@ -765,7 +963,7 @@ data class OriginalSoundInfo(
     val isEligibleForAudioEffects: Boolean,
 )
 
-data class IgArtist(
+data class IgArtistAllReels(
     val pk: String,
     @SerializedName("pk_id")
     val pkId: String,
@@ -784,7 +982,7 @@ data class IgArtist(
     val profilePicUrl: String,
 )
 
-data class ConsumptionInfo(
+data class ConsumptionInfoAllReels(
     @SerializedName("is_bookmarked")
     val isBookmarked: Boolean,
     @SerializedName("should_mute_audio_reason")
@@ -797,7 +995,7 @@ data class ConsumptionInfo(
     val displayMediaId: Any?,
 )
 
-data class MashupInfo(
+data class MashupInfoAllReels(
     @SerializedName("mashups_allowed")
     val mashupsAllowed: Boolean,
     @SerializedName("can_toggle_mashups_allowed")
@@ -813,7 +1011,7 @@ data class MashupInfo(
     @SerializedName("privacy_filtered_mashups_media_count")
     val privacyFilteredMashupsMediaCount: Any?,
     @SerializedName("non_privacy_filtered_mashups_media_count")
-    val nonPrivacyFilteredMashupsMediaCount: Long,
+    val nonPrivacyFilteredMashupsMediaCount: Long?,
     @SerializedName("mashup_type")
     val mashupType: Any?,
     @SerializedName("is_creator_requesting_mashup")
@@ -824,55 +1022,75 @@ data class MashupInfo(
     val isPivotPageAvailable: Boolean,
 )
 
-data class BrandedContentTagInfo(
+data class BrandedContentTagInfoAllReels(
     @SerializedName("can_add_tag")
     val canAddTag: Boolean,
 )
 
-data class AdditionalAudioInfo(
+data class AdditionalAudioInfoAllReels(
     @SerializedName("additional_audio_username")
     val additionalAudioUsername: Any?,
     @SerializedName("audio_reattribution_info")
-    val audioReattributionInfo: AudioReattributionInfo,
+    val audioReattributionInfo: AudioReattributionInfoAllReels,
 )
 
-data class AudioReattributionInfo(
+data class AudioReattributionInfoAllReels(
     @SerializedName("should_allow_restore")
     val shouldAllowRestore: Boolean,
 )
 
-data class AudioRankingInfo(
+data class AudioRankingInfoAllReels(
     @SerializedName("best_audio_cluster_id")
     val bestAudioClusterId: String,
 )
 
-data class ContentAppreciationInfo(
+data class ContentAppreciationInfoAllReels(
     val enabled: Boolean,
     @SerializedName("entry_point_container")
-    val entryPointContainer: EntryPointContainer,
+    val entryPointContainer: Any?,
 )
 
-data class EntryPointContainer(
-    val pill: Pill,
-    val comment: CommentReel,
-    val overflow: Any?,
-    val ufi: Any?,
-)
-
-data class Pill(
-    @SerializedName("action_type")
-    val actionType: String,
-    val priority: Long,
-)
-
-data class CommentReel(
-    @SerializedName("action_type")
-    val actionType: String,
-)
-
-data class AchievementsInfo(
+data class AchievementsInfoAllReels(
     @SerializedName("show_achievements")
     val showAchievements: Boolean,
     @SerializedName("num_earned_achievements")
     val numEarnedAchievements: Any?,
+)
+
+data class SponsorTagAllReels(
+    val permission: Boolean,
+    val sponsor: SponsorAllReels,
+    @SerializedName("is_pending")
+    val isPending: Boolean,
+    @SerializedName("sponsor_id")
+    val sponsorId: Any?,
+    val username: Any?,
+)
+
+data class SponsorAllReels(
+    val pk: String,
+    @SerializedName("pk_id")
+    val pkId: String,
+    @SerializedName("full_name")
+    val fullName: String,
+    @SerializedName("is_private")
+    val isPrivate: Boolean,
+    @SerializedName("strong_id__")
+    val strongId: String,
+    @SerializedName("is_unpublished")
+    val isUnpublished: Boolean,
+    val username: String,
+    @SerializedName("is_verified")
+    val isVerified: Boolean,
+    @SerializedName("profile_pic_id")
+    val profilePicId: String,
+    @SerializedName("profile_pic_url")
+    val profilePicUrl: String,
+)
+
+data class PagingInfoAllReels(
+    @SerializedName("max_id")
+    val maxId: String,
+    @SerializedName("more_available")
+    val moreAvailable: Boolean,
 )
